@@ -8,8 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --deep: #1E1B2E;
-      --deep-mid: #2D1F3D;
       --coral: #E8725A;
       --coral-hover: #D4614B;
       --coral-glow: rgba(232,114,90,0.25);
@@ -29,518 +27,279 @@
       --shadow-lg: 0 8px 24px rgba(0,0,0,0.08), 0 20px 48px rgba(0,0,0,0.1);
       --radius: 16px;
       --radius-sm: 12px;
+      --radius-lg: 20px;
       --font-heading: 'Plus Jakarta Sans', sans-serif;
       --font-body: 'Inter', sans-serif;
     }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--cream);
-      color: var(--text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
+    body { font-family: var(--font-body); background: var(--cream); color: var(--text); line-height:1.6; -webkit-font-smoothing:antialiased; }
 
     /* ===== HERO ===== */
-    .hero {
-      position: relative;
-      padding: 72px 24px 64px;
-      text-align: center;
-      overflow: hidden;
-      background: var(--cream);
-    }
-
-    .sparkle-canvas {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-    .sparkle {
-      position: absolute;
-      border-radius: 50%;
-      animation: sparkleFloat linear infinite;
-      opacity: 0;
-    }
-    .sparkle.star { width: 3px; height: 3px; background: var(--coral); box-shadow: 0 0 6px 1px var(--coral-glow); }
-    .sparkle.dot { width: 4px; height: 4px; background: var(--amber); box-shadow: 0 0 8px 2px rgba(242,166,90,0.2); }
-    .sparkle.ring { width: 6px; height: 6px; background: transparent; border: 1.5px solid var(--sage); box-shadow: 0 0 6px 1px rgba(123,166,138,0.15); }
-    .sparkle.plus::before, .sparkle.plus::after { content:'';position:absolute;background:var(--amber);border-radius:1px; }
+    .hero { position:relative; padding:60px 24px 48px; text-align:center; overflow:hidden; background:var(--cream); }
+    .sparkle-canvas { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .sparkle { position:absolute; border-radius:50%; animation:sparkleFloat linear infinite; opacity:0; }
+    .sparkle.star { width:3px; height:3px; background:var(--coral); box-shadow:0 0 6px 1px var(--coral-glow); }
+    .sparkle.dot { width:4px; height:4px; background:var(--amber); box-shadow:0 0 8px 2px rgba(242,166,90,0.2); }
+    .sparkle.ring { width:6px; height:6px; background:transparent; border:1.5px solid var(--sage); }
+    .sparkle.plus::before,.sparkle.plus::after { content:''; position:absolute; background:var(--amber); border-radius:1px; }
     .sparkle.plus::before { width:8px;height:2px;top:3px;left:0; }
-    .sparkle.plus::after  { width:2px;height:8px;top:0;left:3px; }
+    .sparkle.plus::after { width:2px;height:8px;top:0;left:3px; }
     .sparkle.plus { width:8px;height:8px;background:transparent;border:none;box-shadow:none; }
+    @keyframes sparkleFloat { 0%{opacity:0;transform:translateY(0) scale(0.5) rotate(0deg)} 15%{opacity:1} 85%{opacity:1} 100%{opacity:0;transform:translateY(-60px) scale(1.2) rotate(180deg)} }
+    @keyframes twinkle { 0%,100%{opacity:0.2;transform:scale(0.8)} 50%{opacity:1;transform:scale(1.2)} }
+    .sparkle-static { position:absolute; width:3px; height:3px; border-radius:50%; background:var(--coral); box-shadow:0 0 4px 1px var(--coral-glow); animation:twinkle ease-in-out infinite; pointer-events:none; }
 
-    @keyframes sparkleFloat {
-      0%   { opacity: 0; transform: translateY(0) scale(0.5) rotate(0deg); }
-      15%  { opacity: 1; }
-      85%  { opacity: 1; }
-      100% { opacity: 0; transform: translateY(-60px) scale(1.2) rotate(180deg); }
-    }
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.2; transform: scale(0.8); }
-      50%      { opacity: 1;   transform: scale(1.2); }
-    }
-    .sparkle-static {
-      position: absolute;
-      width: 3px; height: 3px;
-      border-radius: 50%;
-      background: var(--coral);
-      box-shadow: 0 0 4px 1px var(--coral-glow);
-      animation: twinkle ease-in-out infinite;
-      pointer-events: none;
-    }
+    .hero-content { position:relative; z-index:1; max-width:640px; margin:0 auto; }
+    .hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(232,114,90,0.08); padding:8px 20px; border-radius:50px; font-size:0.85rem; font-weight:600; color:var(--coral); margin-bottom:20px; border:1px solid rgba(232,114,90,0.15); }
+    .hero-badge .dot { width:6px; height:6px; border-radius:50%; background:var(--coral); }
+    .hero h1 { font-family:var(--font-heading); font-size:clamp(2rem,5vw,3.2rem); font-weight:800; color:var(--text); letter-spacing:-0.03em; line-height:1.1; margin-bottom:10px; }
+    .hero h1 .accent { color:var(--coral); }
+    .hero p { color:var(--text-secondary); font-size:clamp(0.95rem,2vw,1.1rem); font-weight:500; max-width:440px; margin:0 auto 20px; }
+    .family-chips { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+    .family-chip { display:flex; align-items:center; gap:8px; background:var(--card-bg); padding:8px 18px; border-radius:50px; font-family:var(--font-heading); font-weight:600; font-size:0.88rem; border:1px solid #E8E2DA; box-shadow:var(--shadow-sm); }
 
-    .hero-content { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+    /* ===== SEARCH BAR ===== */
+    .search-section { max-width:700px; margin:-10px auto 0; padding:0 20px; position:relative; z-index:10; }
+    .search-bar { display:flex; align-items:center; gap:12px; background:var(--card-bg); border-radius:50px; padding:14px 22px; box-shadow:var(--shadow); border:2px solid transparent; transition:all 0.25s ease; }
+    .search-bar:focus-within { border-color:var(--coral); box-shadow:0 0 0 4px var(--coral-glow), var(--shadow); }
+    .search-bar svg { width:20px; height:20px; color:var(--text-muted); flex-shrink:0; }
+    .search-bar input { border:none; outline:none; font-family:var(--font-body); font-size:0.95rem; font-weight:500; width:100%; background:transparent; color:var(--text); }
+    .search-bar input::placeholder { color:var(--text-muted); }
+    .search-count { white-space:nowrap; font-size:0.8rem; color:var(--text-muted); font-weight:700; font-family:var(--font-heading); }
 
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(232,114,90,0.08); padding: 8px 20px;
-      border-radius: 50px; font-family: var(--font-body);
-      font-size: 0.85rem; font-weight: 600; color: var(--coral);
-      margin-bottom: 24px; border: 1px solid rgba(232,114,90,0.15);
-    }
-    .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--coral); }
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb { max-width:1200px; margin:0 auto; padding:28px 20px 8px; display:none; }
+    .breadcrumb.visible { display:flex; }
+    .breadcrumb { align-items:center; gap:8px; flex-wrap:wrap; }
+    .breadcrumb-item { font-family:var(--font-heading); font-size:0.85rem; font-weight:600; color:var(--coral); cursor:pointer; transition:color 0.2s; text-decoration:none; }
+    .breadcrumb-item:hover { color:var(--coral-hover); text-decoration:underline; }
+    .breadcrumb-sep { color:var(--text-muted); font-size:0.85rem; }
+    .breadcrumb-current { font-family:var(--font-heading); font-size:0.85rem; font-weight:700; color:var(--text); }
 
-    .hero h1 {
-      font-family: var(--font-heading);
-      font-size: clamp(2.2rem, 5.5vw, 3.5rem);
-      font-weight: 800; color: var(--text);
-      letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 12px;
-    }
-    .hero h1 .accent { color: var(--coral); }
-    .hero p {
-      color: var(--text-secondary); font-size: clamp(1rem, 2vw, 1.15rem);
-      font-weight: 500; max-width: 440px; margin: 0 auto 28px; line-height: 1.6;
-    }
+    /* ===== SECTION TITLE ===== */
+    .section-heading { max-width:1200px; margin:0 auto; padding:24px 20px 16px; }
+    .section-heading h2 { font-family:var(--font-heading); font-size:1.5rem; font-weight:800; color:var(--text); letter-spacing:-0.02em; }
+    .section-heading p { color:var(--text-secondary); font-size:0.92rem; margin-top:4px; }
 
-    .family-chips { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-    .family-chip {
-      display: flex; align-items: center; gap: 8px;
-      background: var(--card-bg); padding: 10px 22px;
-      border-radius: 50px; font-family: var(--font-heading);
-      font-weight: 600; color: var(--text); font-size: 0.92rem;
-      border: 1px solid #E8E2DA; box-shadow: var(--shadow-sm);
-      transition: all 0.25s ease;
+    /* ===== CATEGORY CARDS (HOME) ===== */
+    .categories-grid { max-width:1200px; margin:0 auto; padding:0 20px 40px; display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:16px; }
+    .cat-card {
+      position:relative; border-radius:var(--radius-lg); padding:28px 24px; cursor:pointer;
+      overflow:hidden; transition:all 0.3s ease; border:1px solid transparent;
+      display:flex; flex-direction:column; min-height:180px;
     }
-    .family-chip:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-    .family-chip .emoji { font-size: 1.2rem; }
+    .cat-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lg); }
+    .cat-card-icon { font-size:2.5rem; margin-bottom:12px; }
+    .cat-card-name { font-family:var(--font-heading); font-size:1.2rem; font-weight:800; margin-bottom:4px; }
+    .cat-card-desc { font-size:0.84rem; font-weight:500; opacity:0.85; margin-bottom:12px; line-height:1.5; flex:1; }
+    .cat-card-count { font-family:var(--font-heading); font-size:0.75rem; font-weight:800; padding:4px 12px; border-radius:50px; display:inline-flex; width:fit-content; }
+    .cat-card-arrow { position:absolute; top:24px; right:24px; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:all 0.3s ease; font-size:1.1rem; }
+    .cat-card:hover .cat-card-arrow { transform:translateX(4px); }
 
-    /* ===== NAV TABS ===== */
-    .nav-area { max-width: 1200px; margin: -24px auto 0; padding: 0 20px; position: relative; z-index: 10; }
-    .nav-tabs { display: flex; gap: 4px; }
-    .nav-tab {
-      padding: 12px 28px; border-radius: 14px 14px 0 0;
-      font-family: var(--font-heading); font-weight: 700; font-size: 0.92rem;
-      cursor: pointer; border: none; transition: all 0.2s ease;
-    }
-    .nav-tab.active { background: var(--card-bg); color: var(--text); box-shadow: 0 -2px 12px rgba(0,0,0,0.04); }
-    .nav-tab:not(.active) { background: #F0EBE3; color: var(--text-secondary); }
-    .nav-tab:not(.active):hover { background: #E8E2DA; }
-    .tab-count {
-      display: inline-flex; align-items: center; justify-content: center;
-      min-width: 22px; height: 22px; padding: 0 7px;
-      border-radius: 50px; font-size: 0.72rem; font-weight: 800; margin-left: 8px;
-    }
-    .nav-tab.active .tab-count { background: var(--coral); color: #fff; }
-    .nav-tab:not(.active) .tab-count { background: #D4CFC9; color: #fff; }
+    /* Category card themes */
+    .cat-card.outdoor { background:linear-gradient(135deg, #E8F3EC 0%, #D0E8D8 100%); color:#2D5A3D; }
+    .cat-card.outdoor .cat-card-count { background:rgba(74,125,90,0.15); color:#3A6B4A; }
+    .cat-card.outdoor .cat-card-arrow { background:rgba(74,125,90,0.12); color:#3A6B4A; }
+    .cat-card.indoor { background:linear-gradient(135deg, #E3ECF6 0%, #CEDCF0 100%); color:#2D4A6B; }
+    .cat-card.indoor .cat-card-count { background:rgba(74,110,148,0.15); color:#3A5A7A; }
+    .cat-card.indoor .cat-card-arrow { background:rgba(74,110,148,0.12); color:#3A5A7A; }
+    .cat-card.arts_culture { background:linear-gradient(135deg, #EDE6F6 0%, #DDD0EE 100%); color:#4A3468; }
+    .cat-card.arts_culture .cat-card-count { background:rgba(107,79,138,0.15); color:#5A4080; }
+    .cat-card.arts_culture .cat-card-arrow { background:rgba(107,79,138,0.12); color:#5A4080; }
+    .cat-card.food_dining { background:linear-gradient(135deg, #FEF0E0 0%, #F8DFC8 100%); color:#7A4A2A; }
+    .cat-card.food_dining .cat-card-count { background:rgba(180,83,63,0.12); color:#8A5030; }
+    .cat-card.food_dining .cat-card-arrow { background:rgba(180,83,63,0.10); color:#8A5030; }
+    .cat-card.seasonal_events { background:linear-gradient(135deg, #FEF0D6 0%, #F8E2B8 100%); color:#6A5020; }
+    .cat-card.seasonal_events .cat-card-count { background:rgba(160,112,48,0.15); color:#7A5A28; }
+    .cat-card.seasonal_events .cat-card-arrow { background:rgba(160,112,48,0.12); color:#7A5A28; }
+    .cat-card.day_trips { background:linear-gradient(135deg, #DEE6F6 0%, #C8D6F0 100%); color:#2D3E6B; }
+    .cat-card.day_trips .cat-card-count { background:rgba(63,90,138,0.15); color:#3A4E8A; }
+    .cat-card.day_trips .cat-card-arrow { background:rgba(63,90,138,0.12); color:#3A4E8A; }
+    .cat-card.hidden_gems { background:linear-gradient(135deg, #F4E0EA 0%, #EAC8DA 100%); color:#6A3A50; }
+    .cat-card.hidden_gems .cat-card-count { background:rgba(138,74,102,0.15); color:#8A4A66; }
+    .cat-card.hidden_gems .cat-card-arrow { background:rgba(138,74,102,0.12); color:#8A4A66; }
 
-    /* ===== CONTROLS ===== */
-    .controls-panel { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    .controls-inner {
-      background: var(--card-bg);
-      border-radius: 0 var(--radius) var(--radius) var(--radius);
-      box-shadow: var(--shadow); padding: 20px 24px 18px;
-      border: 1px solid var(--border);
+    /* ===== SUBCATEGORY CARDS ===== */
+    .subcats-grid { max-width:1200px; margin:0 auto; padding:0 20px 40px; display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:14px; }
+    .subcat-card {
+      background:var(--card-bg); border-radius:var(--radius); padding:22px 20px;
+      box-shadow:var(--shadow-sm); border:1px solid var(--border);
+      cursor:pointer; transition:all 0.3s ease; display:flex; flex-direction:column; align-items:center;
+      text-align:center; gap:8px;
     }
+    .subcat-card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--coral); }
+    .subcat-card-icon { font-size:2.2rem; }
+    .subcat-card-name { font-family:var(--font-heading); font-size:1rem; font-weight:700; color:var(--text); }
+    .subcat-card-count { font-family:var(--font-heading); font-size:0.72rem; font-weight:800; color:var(--text-muted); background:#F0ECE6; padding:3px 10px; border-radius:50px; }
+    .subcat-card-preview { font-size:0.78rem; color:var(--text-secondary); line-height:1.45; }
 
-    .search-wrap {
-      display: flex; align-items: center; gap: 12px;
-      background: var(--cream); border-radius: var(--radius-sm);
-      padding: 13px 18px; margin-bottom: 18px;
-      border: 2px solid transparent; transition: all 0.25s ease;
-    }
-    .search-wrap:focus-within {
-      border-color: var(--coral); box-shadow: 0 0 0 4px var(--coral-glow);
-      background: var(--warm-white);
-    }
-    .search-wrap svg { width: 20px; height: 20px; color: var(--text-muted); flex-shrink: 0; }
-    .search-wrap input {
-      border: none; outline: none; font-family: var(--font-body);
-      font-size: 0.95rem; font-weight: 500; width: 100%;
-      background: transparent; color: var(--text);
-    }
-    .search-wrap input::placeholder { color: var(--text-muted); }
-    .result-count {
-      white-space: nowrap; font-size: 0.82rem; color: var(--text-muted);
-      font-weight: 700; font-family: var(--font-heading);
-    }
+    /* ===== VENUE CARDS ===== */
+    .venues-grid { max-width:1200px; margin:0 auto; padding:0 20px 40px; display:grid; grid-template-columns:repeat(auto-fill, minmax(350px, 1fr)); gap:18px; }
+    @media (max-width:420px) { .venues-grid { grid-template-columns:1fr; } }
 
-    .filter-group { margin-bottom: 10px; }
-    .filter-group:last-child { margin-bottom: 0; }
-    .filter-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-    .filter-label {
-      font-family: var(--font-heading); font-size: 0.7rem; font-weight: 800;
-      color: var(--text-muted); text-transform: uppercase;
-      letter-spacing: 1.2px; margin-right: 4px; white-space: nowrap;
+    .venue-card {
+      background:var(--card-bg); border-radius:var(--radius); box-shadow:var(--shadow-sm);
+      border:1px solid var(--border); overflow:hidden; transition:all 0.3s ease;
+      display:flex; flex-direction:column; position:relative;
     }
-    .chip {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 7px 15px; border-radius: 50px; font-size: 0.82rem; font-weight: 600;
-      cursor: pointer; border: 1.5px solid #E2DDD7;
-      background: var(--card-bg); color: var(--text-secondary);
-      transition: all 0.2s ease; user-select: none; white-space: nowrap;
-      font-family: var(--font-body);
-    }
-    .chip:hover { border-color: var(--coral); color: var(--coral); }
-    .chip.active {
-      background: var(--coral); border-color: var(--coral); color: #fff;
-      box-shadow: 0 3px 12px var(--coral-glow);
-    }
-    .chip .chip-icon { font-size: 0.92rem; }
+    .venue-card:hover { transform:translateY(-4px); box-shadow:var(--shadow); }
+    .venue-accent { height:4px; }
 
-    .chip[data-category="outdoor"].active { background: var(--sage); border-color: var(--sage); box-shadow: 0 3px 12px rgba(123,166,138,0.3); }
-    .chip[data-category="indoor"].active { background: #6B8EBF; border-color: #6B8EBF; box-shadow: 0 3px 12px rgba(107,142,191,0.3); }
-    .chip[data-category="arts_culture"].active { background: #9B7EC8; border-color: #9B7EC8; box-shadow: 0 3px 12px rgba(155,126,200,0.3); }
-    .chip[data-category="food_dining"].active { background: var(--coral); border-color: var(--coral); }
-    .chip[data-category="seasonal_events"].active { background: var(--amber); border-color: var(--amber); box-shadow: 0 3px 12px rgba(242,166,90,0.3); }
-    .chip[data-category="day_trips"].active { background: #5B7FC7; border-color: #5B7FC7; box-shadow: 0 3px 12px rgba(91,127,199,0.3); }
-    .chip[data-category="hidden_gems"].active { background: #C47A9B; border-color: #C47A9B; box-shadow: 0 3px 12px rgba(196,122,155,0.3); }
-
-    .chip[data-cost="free"].active { background: var(--sage); border-color: var(--sage); box-shadow: 0 3px 12px rgba(123,166,138,0.3); }
-    .chip[data-cost="$"].active { background: #6B8EBF; border-color: #6B8EBF; box-shadow: 0 3px 12px rgba(107,142,191,0.3); }
-    .chip[data-cost="$$"].active { background: var(--amber); border-color: var(--amber); box-shadow: 0 3px 12px rgba(242,166,90,0.3); }
-    .chip[data-cost="$$$"].active { background: var(--coral); border-color: var(--coral); }
-
-    .chip[data-setting="outdoor"].active { background: var(--sage); border-color: var(--sage); box-shadow: 0 3px 12px rgba(123,166,138,0.3); }
-    .chip[data-setting="indoor"].active { background: #6B8EBF; border-color: #6B8EBF; box-shadow: 0 3px 12px rgba(107,142,191,0.3); }
-    .chip[data-setting="both"].active { background: #9B7EC8; border-color: #9B7EC8; box-shadow: 0 3px 12px rgba(155,126,200,0.3); }
-
-    /* ===== SUBCATEGORY ROW ===== */
-    .subcategory-row {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.35s ease, opacity 0.3s ease, margin 0.3s ease;
-      opacity: 0; margin-top: 0;
-    }
-    .subcategory-row.visible {
-      max-height: 120px; opacity: 1; margin-top: 10px;
-    }
-    .subcategory-inner {
-      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
-      padding: 10px 14px; background: #F8F5F0; border-radius: var(--radius-sm);
-      border: 1px dashed #DDD7CF;
-    }
-    .subcategory-inner .filter-label { color: var(--coral); }
-    .sub-chip {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 6px 14px; border-radius: 50px; font-size: 0.78rem; font-weight: 600;
-      cursor: pointer; border: 1.5px solid #DDD7CF;
-      background: var(--card-bg); color: var(--text-secondary);
-      transition: all 0.2s ease; user-select: none; white-space: nowrap;
-      font-family: var(--font-body);
-    }
-    .sub-chip:hover { border-color: var(--coral); color: var(--coral); background: #FFF8F5; }
-    .sub-chip.active {
-      background: var(--text); border-color: var(--text); color: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    .sub-chip .sub-icon { font-size: 0.85rem; }
-    .sub-chip .sub-count {
-      font-size: 0.68rem; font-weight: 800;
-      background: rgba(0,0,0,0.1); padding: 1px 6px;
-      border-radius: 50px; margin-left: 2px;
-    }
-    .sub-chip.active .sub-count { background: rgba(255,255,255,0.2); }
-
-    .clear-btn {
-      padding: 7px 16px; border-radius: 50px; font-size: 0.82rem; font-weight: 700;
-      cursor: pointer; border: 1.5px dashed #D4CFC9;
-      background: transparent; color: var(--text-muted);
-      font-family: var(--font-body); transition: all 0.2s ease;
-    }
-    .clear-btn:hover { border-color: var(--coral); color: var(--coral); background: #FFF5F2; }
-
-    /* ===== CARDS ===== */
-    .grid-container { max-width: 1200px; margin: 28px auto; padding: 0 20px 40px; }
-    .cards-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;
-    }
-    @media (max-width: 420px) { .cards-grid { grid-template-columns: 1fr; } }
-
-    .card {
-      background: var(--card-bg); border-radius: var(--radius);
-      box-shadow: var(--shadow-sm); border: 1px solid var(--border);
-      overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex; flex-direction: column; position: relative;
-    }
-    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: transparent; }
-
-    .card-accent { height: 4px; }
-    .cat-outdoor .card-accent { background: linear-gradient(90deg, var(--sage), #9BC4A8); }
-    .cat-indoor .card-accent { background: linear-gradient(90deg, #6B8EBF, #8FADD4); }
-    .cat-arts_culture .card-accent { background: linear-gradient(90deg, #9B7EC8, #B99AD8); }
-    .cat-food_dining .card-accent { background: linear-gradient(90deg, var(--coral), var(--amber)); }
-    .cat-seasonal_events .card-accent { background: linear-gradient(90deg, var(--amber), #F7C97E); }
-    .cat-day_trips .card-accent { background: linear-gradient(90deg, #5B7FC7, #7E9FD8); }
-    .cat-hidden_gems .card-accent { background: linear-gradient(90deg, #C47A9B, #D99AB4); }
-
-    .save-btn {
-      position: absolute; top: 14px; right: 14px;
-      width: 38px; height: 38px; border-radius: 50%; border: none;
-      background: var(--warm-white); cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.25s ease; z-index: 5;
-    }
-    .save-btn:hover { transform: scale(1.15); box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
-    .save-btn svg { width: 18px; height: 18px; transition: all 0.25s ease; }
-    .save-btn .heart-outline { color: #C8C2BB; }
-    .save-btn .heart-filled { display: none; color: var(--coral); }
-    .save-btn.saved .heart-outline { display: none; }
-    .save-btn.saved .heart-filled { display: block; }
-    .save-btn.saved { background: var(--blush); }
+    /* Save button */
+    .save-btn { position:absolute; top:14px; right:14px; width:36px; height:36px; border-radius:50%; border:none; background:var(--warm-white); cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 8px rgba(0,0,0,0.08); transition:all 0.25s ease; z-index:5; }
+    .save-btn:hover { transform:scale(1.15); }
+    .save-btn svg { width:17px; height:17px; }
+    .save-btn .heart-outline { color:#C8C2BB; }
+    .save-btn .heart-filled { display:none; color:var(--coral); }
+    .save-btn.saved .heart-outline { display:none; }
+    .save-btn.saved .heart-filled { display:block; }
+    .save-btn.saved { background:var(--blush); }
     @keyframes heartPop { 0%{transform:scale(1)} 30%{transform:scale(1.3)} 60%{transform:scale(0.95)} 100%{transform:scale(1)} }
-    .save-btn.pop { animation: heartPop 0.4s ease; }
+    .save-btn.pop { animation:heartPop 0.4s ease; }
 
-    .card-header { padding: 18px 20px 8px; display: flex; align-items: flex-start; gap: 14px; }
-    .card-icon-wrap {
-      width: 46px; height: 46px; border-radius: var(--radius-sm);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.35rem; flex-shrink: 0;
-    }
-    .cat-outdoor .card-icon-wrap { background: var(--sage-light); }
-    .cat-indoor .card-icon-wrap { background: #E3ECF6; }
-    .cat-arts_culture .card-icon-wrap { background: #EDE6F6; }
-    .cat-food_dining .card-icon-wrap { background: var(--blush); }
-    .cat-seasonal_events .card-icon-wrap { background: #FEF0D6; }
-    .cat-day_trips .card-icon-wrap { background: #DEE6F6; }
-    .cat-hidden_gems .card-icon-wrap { background: #F4E0EA; }
+    .venue-header { padding:18px 20px 6px; display:flex; align-items:flex-start; gap:14px; }
+    .venue-icon-wrap { width:46px; height:46px; border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0; }
 
-    .card-header-text { flex: 1; min-width: 0; padding-right: 28px; }
-    .card-name {
-      font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700;
-      color: var(--text); line-height: 1.3; letter-spacing: -0.01em;
-    }
-    .card-meta-row {
-      display: flex; align-items: center; gap: 8px; margin-top: 5px; flex-wrap: wrap;
-    }
-    .card-tag {
-      display: inline-block; font-family: var(--font-heading);
-      font-size: 0.68rem; font-weight: 700; padding: 3px 10px;
-      border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px;
-    }
-    .cat-outdoor .card-tag { background: var(--sage-light); color: #4A7D5A; }
-    .cat-indoor .card-tag { background: #E3ECF6; color: #4A6E94; }
-    .cat-arts_culture .card-tag { background: #EDE6F6; color: #6B4F8A; }
-    .cat-food_dining .card-tag { background: var(--blush); color: #B5533F; }
-    .cat-seasonal_events .card-tag { background: #FEF0D6; color: #A07030; }
-    .cat-day_trips .card-tag { background: #DEE6F6; color: #3F5A8A; }
-    .cat-hidden_gems .card-tag { background: #F4E0EA; color: #8A4A66; }
+    .venue-header-text { flex:1; min-width:0; padding-right:28px; }
+    .venue-name { font-family:var(--font-heading); font-size:1.05rem; font-weight:700; color:var(--text); line-height:1.3; }
+    .venue-tag { display:inline-block; font-family:var(--font-heading); font-size:0.66rem; font-weight:700; padding:3px 9px; border-radius:50px; text-transform:uppercase; letter-spacing:0.5px; margin-top:5px; }
+    .venue-rating { display:flex; align-items:center; gap:5px; margin-top:5px; font-size:0.78rem; }
+    .venue-rating .stars { color:#F2A65A; letter-spacing:-1px; font-size:0.85rem; }
+    .venue-rating .rating-num { font-weight:700; color:var(--text); }
+    .venue-rating .review-count { color:var(--text-muted); }
 
-    .card-subcat-tag {
-      display: inline-block; font-family: var(--font-heading);
-      font-size: 0.65rem; font-weight: 700; padding: 2px 8px;
-      border-radius: 50px; background: #F0ECE6; color: var(--text-muted);
-      text-transform: uppercase; letter-spacing: 0.5px;
-    }
+    .venue-body { padding:6px 20px 14px; flex:1; }
+    .venue-desc { font-size:0.86rem; color:var(--text-secondary); margin-bottom:10px; line-height:1.6; }
+    .venue-toddler { font-size:0.82rem; font-weight:600; color:#4A7D5A; background:var(--sage-light); padding:10px 14px; border-radius:10px; line-height:1.5; border-left:3px solid var(--sage); }
 
-    /* Rating display */
-    .card-rating {
-      display: inline-flex; align-items: center; gap: 4px;
-      font-size: 0.78rem; font-weight: 600;
-    }
-    .card-rating .stars { color: #F2A65A; letter-spacing: -1px; font-size: 0.82rem; }
-    .card-rating .rating-num { color: var(--text); font-weight: 700; }
-    .card-rating .review-count { color: var(--text-muted); font-weight: 500; }
+    .venue-footer { padding:10px 20px; border-top:1px solid rgba(0,0,0,0.04); display:flex; flex-wrap:wrap; gap:6px; background:#FDFCFA; }
+    .venue-pill { display:inline-flex; align-items:center; gap:3px; font-family:var(--font-heading); font-size:0.72rem; font-weight:700; padding:4px 10px; border-radius:50px; }
+    .pill-cost { background:#FEF0D6; color:#8A6020; }
+    .pill-cost.free { background:var(--sage-light); color:#4A7D5A; }
+    .pill-area { background:#F0ECE6; color:var(--text-secondary); }
 
-    .card-body { padding: 6px 20px 16px; flex: 1; }
-    .card-desc { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.6; }
-    .card-toddler {
-      font-size: 0.84rem; font-weight: 600; color: #4A7D5A;
-      background: var(--sage-light); padding: 10px 14px;
-      border-radius: 10px; line-height: 1.5; border-left: 3px solid var(--sage);
-    }
+    .venue-actions { padding:0 20px 16px; display:flex; gap:8px; flex-wrap:wrap; }
+    .venue-link { display:inline-flex; align-items:center; gap:6px; padding:9px 16px; border-radius:50px; font-family:var(--font-heading); font-size:0.78rem; font-weight:700; text-decoration:none; transition:all 0.2s ease; cursor:pointer; }
+    .venue-link svg { width:14px; height:14px; }
+    .venue-link-map { background:#E3ECF6; color:#3F5A8A; border:1px solid #C9D9EE; }
+    .venue-link-map:hover { background:#D0E0F4; transform:translateY(-1px); }
+    .venue-link-dir { background:var(--sage-light); color:#4A7D5A; border:1px solid #B8D8C2; }
+    .venue-link-dir:hover { background:#D8EDE0; transform:translateY(-1px); }
+    .venue-link-web { background:#EDE6F6; color:#6B4F8A; border:1px solid #D5C9E6; }
+    .venue-link-web:hover { background:#E0D4F0; transform:translateY(-1px); }
 
-    .card-footer {
-      padding: 12px 20px; border-top: 1px solid rgba(0,0,0,0.04);
-      display: flex; flex-wrap: wrap; gap: 6px;
-      background: #FDFCFA; border-radius: 0 0 var(--radius) var(--radius);
-    }
-    .card-pill {
-      display: inline-flex; align-items: center; gap: 3px;
-      font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700;
-      padding: 4px 10px; border-radius: 50px;
-    }
-    .pill-cost { background: #FEF0D6; color: #8A6020; }
-    .pill-cost.free { background: var(--sage-light); color: #4A7D5A; }
-    .pill-setting { background: var(--sage-light); color: #4A7D5A; }
-    .pill-setting.indoor { background: #E3ECF6; color: #4A6E94; }
-    .pill-setting.both { background: #EDE6F6; color: #6B4F8A; }
-    .pill-area { background: #F0ECE6; color: var(--text-secondary); }
+    .venue-details { max-height:0; overflow:hidden; transition:max-height 0.35s ease; }
+    .venue-details-inner { padding:0 20px 12px; }
+    .venue-details-inner p { font-size:0.82rem; color:var(--text-secondary); margin-bottom:4px; line-height:1.5; }
+    .venue-details-inner p strong { color:var(--text); }
+    .venue-card.expanded .venue-details { max-height:300px; }
 
-    /* ===== EXPANDED DETAIL ===== */
-    .card-detail { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
-    .card-detail-inner { padding: 0 20px 14px; }
-    .card-detail-inner p { font-size: 0.84rem; color: var(--text-secondary); margin-bottom: 5px; line-height: 1.55; }
-    .card-detail-inner p strong { color: var(--text); }
-    .card.expanded .card-detail { max-height: 600px; }
+    .venue-toggle { display:flex; align-items:center; justify-content:center; gap:4px; width:100%; padding:9px; border:none; background:#F8F6F2; color:var(--text-muted); font-family:var(--font-heading); font-size:0.76rem; font-weight:700; cursor:pointer; border-top:1px solid rgba(0,0,0,0.04); transition:all 0.2s; }
+    .venue-toggle:hover { background:#F0ECE6; color:var(--text-secondary); }
+    .venue-toggle svg { width:13px; height:13px; transition:transform 0.25s ease; }
+    .venue-card.expanded .venue-toggle svg { transform:rotate(180deg); }
 
-    .detail-links {
-      display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; margin-bottom: 6px;
-    }
-    .detail-link {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 8px 16px; border-radius: 50px;
-      font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700;
-      text-decoration: none; transition: all 0.2s ease; cursor: pointer;
-    }
-    .detail-link svg { width: 14px; height: 14px; }
-    .detail-link-map {
-      background: #E3ECF6; color: #3F5A8A; border: 1px solid #C9D9EE;
-    }
-    .detail-link-map:hover { background: #D0E0F4; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(63,90,138,0.15); }
-    .detail-link-web {
-      background: #EDE6F6; color: #6B4F8A; border: 1px solid #D5C9E6;
-    }
-    .detail-link-web:hover { background: #E0D4F0; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(107,79,138,0.15); }
-    .detail-link-directions {
-      background: var(--sage-light); color: #4A7D5A; border: 1px solid #B8D8C2;
-    }
-    .detail-link-directions:hover { background: #D8EDE0; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(74,125,90,0.15); }
+    /* Accent colors per category */
+    .cat-outdoor .venue-accent { background:linear-gradient(90deg, var(--sage), #9BC4A8); }
+    .cat-outdoor .venue-icon-wrap { background:var(--sage-light); }
+    .cat-outdoor .venue-tag { background:var(--sage-light); color:#4A7D5A; }
+    .cat-indoor .venue-accent { background:linear-gradient(90deg, #6B8EBF, #8FADD4); }
+    .cat-indoor .venue-icon-wrap { background:#E3ECF6; }
+    .cat-indoor .venue-tag { background:#E3ECF6; color:#4A6E94; }
+    .cat-arts_culture .venue-accent { background:linear-gradient(90deg, #9B7EC8, #B99AD8); }
+    .cat-arts_culture .venue-icon-wrap { background:#EDE6F6; }
+    .cat-arts_culture .venue-tag { background:#EDE6F6; color:#6B4F8A; }
+    .cat-food_dining .venue-accent { background:linear-gradient(90deg, var(--coral), var(--amber)); }
+    .cat-food_dining .venue-icon-wrap { background:var(--blush); }
+    .cat-food_dining .venue-tag { background:var(--blush); color:#B5533F; }
+    .cat-seasonal_events .venue-accent { background:linear-gradient(90deg, var(--amber), #F7C97E); }
+    .cat-seasonal_events .venue-icon-wrap { background:#FEF0D6; }
+    .cat-seasonal_events .venue-tag { background:#FEF0D6; color:#A07030; }
+    .cat-day_trips .venue-accent { background:linear-gradient(90deg, #5B7FC7, #7E9FD8); }
+    .cat-day_trips .venue-icon-wrap { background:#DEE6F6; }
+    .cat-day_trips .venue-tag { background:#DEE6F6; color:#3F5A8A; }
+    .cat-hidden_gems .venue-accent { background:linear-gradient(90deg, #C47A9B, #D99AB4); }
+    .cat-hidden_gems .venue-icon-wrap { background:#F4E0EA; }
+    .cat-hidden_gems .venue-tag { background:#F4E0EA; color:#8A4A66; }
 
-    .detail-rating-full {
-      display: flex; align-items: center; gap: 8px;
-      padding: 10px 14px; background: #FEF8F0; border-radius: 10px;
-      margin-bottom: 10px; border: 1px solid #F0E8D8;
-    }
-    .detail-rating-full .big-stars { color: #F2A65A; font-size: 1.1rem; letter-spacing: 0px; }
-    .detail-rating-full .big-num { font-family: var(--font-heading); font-weight: 800; font-size: 1.1rem; color: var(--text); }
-    .detail-rating-full .big-reviews { font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
+    /* ===== SEARCH RESULTS VIEW ===== */
+    .search-results-heading { max-width:1200px; margin:0 auto; padding:20px 20px 10px; display:none; }
+    .search-results-heading.visible { display:block; }
+    .search-results-heading h2 { font-family:var(--font-heading); font-size:1.2rem; font-weight:800; }
+    .search-results-heading .clear-search { font-size:0.82rem; color:var(--coral); cursor:pointer; font-weight:600; margin-left:10px; }
+    .search-results-heading .clear-search:hover { text-decoration:underline; }
 
-    .card-expand-btn {
-      display: flex; align-items: center; justify-content: center; gap: 4px;
-      width: 100%; padding: 10px; border: none;
-      background: #F8F6F2; color: var(--text-muted);
-      font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700;
-      cursor: pointer; transition: all 0.2s ease;
-      border-top: 1px solid rgba(0,0,0,0.04);
-    }
-    .card-expand-btn:hover { background: #F0ECE6; color: var(--text-secondary); }
-    .card-expand-btn svg { width: 14px; height: 14px; transition: transform 0.25s ease; }
-    .card.expanded .card-expand-btn svg { transform: rotate(180deg); }
+    /* ===== SAVED TAB ===== */
+    .tab-bar { max-width:1200px; margin:24px auto 0; padding:0 20px; display:flex; gap:4px; }
+    .tab-btn { padding:10px 24px; border-radius:var(--radius-sm) var(--radius-sm) 0 0; font-family:var(--font-heading); font-weight:700; font-size:0.88rem; cursor:pointer; border:none; transition:all 0.2s; }
+    .tab-btn.active { background:var(--card-bg); color:var(--text); box-shadow:0 -2px 12px rgba(0,0,0,0.04); }
+    .tab-btn:not(.active) { background:#F0EBE3; color:var(--text-secondary); }
+    .tab-btn:not(.active):hover { background:#E8E2DA; }
+    .tab-count { display:inline-flex; align-items:center; justify-content:center; min-width:20px; height:20px; padding:0 6px; border-radius:50px; font-size:0.7rem; font-weight:800; margin-left:6px; }
+    .tab-btn.active .tab-count { background:var(--coral); color:#fff; }
+    .tab-btn:not(.active) .tab-count { background:#D4CFC9; color:#fff; }
+
+    /* ===== EXTRAS (Rainy, Planner, Tips) ===== */
+    .extras { max-width:1200px; margin:0 auto; padding:0 20px 40px; }
+    .extras-section { margin-bottom:32px; }
+    .extras-title { font-family:var(--font-heading); font-size:1.2rem; font-weight:800; margin-bottom:14px; color:var(--text); }
+
+    .rainy-inner { background:var(--card-bg); border-radius:var(--radius); padding:24px; border:1px solid var(--border); box-shadow:var(--shadow-sm); }
+    .rainy-list { display:flex; flex-wrap:wrap; gap:8px; }
+    .rainy-item { background:var(--cream); padding:7px 15px; border-radius:50px; font-size:0.84rem; font-weight:600; border:1px solid #E8E2DA; transition:all 0.2s; cursor:pointer; }
+    .rainy-item:hover { transform:translateY(-2px); border-color:var(--coral); color:var(--coral); }
+
+    .planner-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:12px; }
+    .planner-card { background:var(--card-bg); border-radius:var(--radius-sm); padding:16px; box-shadow:var(--shadow-sm); border:1px solid var(--border); border-left:4px solid var(--coral); }
+    .planner-card:nth-child(2) { border-left-color:var(--amber); }
+    .planner-card:nth-child(3) { border-left-color:#9B7EC8; }
+    .planner-card:nth-child(4) { border-left-color:#6B8EBF; }
+    .planner-card:nth-child(5) { border-left-color:var(--sage); }
+    .planner-card:nth-child(6) { border-left-color:#C47A9B; }
+    .planner-card:nth-child(7) { border-left-color:#5B7FC7; }
+    .planner-day { font-family:var(--font-heading); font-weight:800; font-size:0.7rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); margin-bottom:4px; }
+    .planner-activity { font-size:0.88rem; font-weight:600; color:var(--text); line-height:1.45; }
+    .planner-meta { font-size:0.76rem; color:var(--text-muted); margin-top:6px; font-weight:600; }
+
+    .tips-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:12px; }
+    @media (max-width:420px) { .tips-grid { grid-template-columns:1fr; } }
+    .tip-card { background:var(--card-bg); border-radius:var(--radius-sm); padding:14px; box-shadow:var(--shadow-sm); display:flex; gap:12px; align-items:flex-start; border:1px solid var(--border); }
+    .tip-num { width:30px; height:30px; border-radius:8px; background:var(--coral); color:#fff; font-family:var(--font-heading); font-weight:800; font-size:0.82rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .tip-text { font-size:0.85rem; color:var(--text-secondary); line-height:1.5; }
 
     /* ===== EMPTY STATE ===== */
-    .empty-state { text-align: center; padding: 80px 20px; grid-column: 1 / -1; }
-    .empty-state .emoji { font-size: 52px; margin-bottom: 16px; }
-    .empty-state h3 { font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 8px; }
-    .empty-state p { color: var(--text-secondary); font-size: 0.95rem; }
-
-    /* ===== RAINY DAY ===== */
-    .rainy-banner { max-width: 1200px; margin: 0 auto 32px; padding: 0 20px; }
-    .rainy-inner {
-      background: var(--card-bg); border-radius: var(--radius);
-      padding: 28px; border: 1px solid var(--border); box-shadow: var(--shadow-sm);
-    }
-    .rainy-inner h3 {
-      font-family: var(--font-heading); font-size: 1.15rem; font-weight: 800;
-      margin-bottom: 16px; color: var(--text); letter-spacing: -0.01em;
-    }
-    .rainy-list { display: flex; flex-wrap: wrap; gap: 8px; }
-    .rainy-item {
-      background: var(--cream); padding: 8px 16px;
-      border-radius: 50px; font-size: 0.85rem;
-      font-weight: 600; color: var(--text);
-      border: 1px solid #E8E2DA; transition: all 0.2s ease;
-    }
-    .rainy-item:hover { transform: translateY(-2px); border-color: var(--coral); color: var(--coral); }
-
-    /* ===== SECTIONS ===== */
-    .section-block { max-width: 1200px; margin: 0 auto 36px; padding: 0 20px; }
-    .section-title {
-      font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800;
-      margin-bottom: 18px; color: var(--text); letter-spacing: -0.02em;
-    }
-
-    .planner-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
-    .planner-card {
-      background: var(--card-bg); border-radius: var(--radius-sm);
-      padding: 18px; box-shadow: var(--shadow-sm);
-      border: 1px solid var(--border); border-left: 4px solid var(--coral);
-      transition: all 0.2s ease;
-    }
-    .planner-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
-    .planner-card:nth-child(2) { border-left-color: var(--amber); }
-    .planner-card:nth-child(3) { border-left-color: #9B7EC8; }
-    .planner-card:nth-child(4) { border-left-color: #6B8EBF; }
-    .planner-card:nth-child(5) { border-left-color: var(--sage); }
-    .planner-card:nth-child(6) { border-left-color: #C47A9B; }
-    .planner-card:nth-child(7) { border-left-color: #5B7FC7; }
-    .planner-day {
-      font-family: var(--font-heading); font-weight: 800; font-size: 0.72rem;
-      text-transform: uppercase; letter-spacing: 1.5px;
-      color: var(--text-muted); margin-bottom: 6px;
-    }
-    .planner-activity { font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.45; }
-    .planner-meta { font-size: 0.78rem; color: var(--text-muted); margin-top: 8px; font-weight: 600; }
-
-    .tips-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
-    @media (max-width: 420px) { .tips-grid { grid-template-columns: 1fr; } }
-    .tip-card {
-      background: var(--card-bg); border-radius: var(--radius-sm);
-      padding: 16px; box-shadow: var(--shadow-sm);
-      display: flex; gap: 14px; align-items: flex-start;
-      border: 1px solid var(--border); transition: transform 0.2s ease;
-    }
-    .tip-card:hover { transform: translateY(-2px); }
-    .tip-num {
-      width: 32px; height: 32px; border-radius: 10px;
-      background: var(--coral); color: #fff;
-      font-family: var(--font-heading); font-weight: 800; font-size: 0.85rem;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .tip-text { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.55; }
+    .empty-state { text-align:center; padding:60px 20px; grid-column:1/-1; }
+    .empty-state .emoji { font-size:48px; margin-bottom:14px; }
+    .empty-state h3 { font-family:var(--font-heading); font-size:1.15rem; margin-bottom:6px; }
+    .empty-state p { color:var(--text-secondary); font-size:0.92rem; }
 
     /* ===== FOOTER ===== */
-    footer {
-      text-align: center; padding: 36px 24px;
-      background: var(--warm-white); border-top: 1px solid #E8E2DA;
-      color: var(--text-muted); font-size: 0.88rem; font-weight: 500;
-    }
-    footer .heart { color: var(--coral); }
-    footer strong { color: var(--text-secondary); }
+    footer { text-align:center; padding:32px 24px; background:var(--warm-white); border-top:1px solid #E8E2DA; color:var(--text-muted); font-size:0.86rem; font-weight:500; }
+    footer .heart { color:var(--coral); }
+    footer strong { color:var(--text-secondary); }
 
-    /* ===== SCROLL TOP ===== */
-    .scroll-top {
-      position: fixed; bottom: 28px; right: 28px;
-      width: 48px; height: 48px; border-radius: 50%;
-      background: var(--coral); color: #fff; border: none;
-      box-shadow: 0 4px 16px var(--coral-glow);
-      cursor: pointer; display: none; align-items: center;
-      justify-content: center; font-size: 1.2rem;
-      z-index: 100; transition: all 0.2s ease;
-    }
-    .scroll-top:hover { transform: scale(1.1); background: var(--coral-hover); }
-    .scroll-top.visible { display: flex; }
+    /* ===== SCROLL TOP & TOAST ===== */
+    .scroll-top { position:fixed; bottom:28px; right:28px; width:46px; height:46px; border-radius:50%; background:var(--coral); color:#fff; border:none; box-shadow:0 4px 16px var(--coral-glow); cursor:pointer; display:none; align-items:center; justify-content:center; font-size:1.1rem; z-index:100; transition:all 0.2s; }
+    .scroll-top:hover { transform:scale(1.1); background:var(--coral-hover); }
+    .scroll-top.visible { display:flex; }
+    .toast { position:fixed; bottom:90px; left:50%; transform:translateX(-50%) translateY(16px); background:var(--text); color:#fff; padding:12px 24px; border-radius:var(--radius-sm); font-family:var(--font-heading); font-size:0.86rem; font-weight:700; box-shadow:var(--shadow-lg); z-index:200; opacity:0; transition:all 0.3s ease; pointer-events:none; }
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-    /* ===== TOAST ===== */
-    .toast {
-      position: fixed; bottom: 90px; left: 50%;
-      transform: translateX(-50%) translateY(16px);
-      background: var(--text); color: #fff; padding: 12px 24px;
-      border-radius: var(--radius-sm);
-      font-family: var(--font-heading); font-size: 0.88rem; font-weight: 700;
-      box-shadow: var(--shadow-lg); z-index: 200; opacity: 0;
-      transition: all 0.3s ease; pointer-events: none;
-    }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    /* ===== TRANSITIONS ===== */
+    .view-container { transition:opacity 0.2s ease; }
+    .view-container.hidden { display:none; }
 
-    @media (max-width: 640px) {
-      .hero { padding: 48px 16px 52px; }
-      .controls-inner { padding: 16px; }
-      .filter-label { display: none; }
-      .chip { padding: 6px 12px; font-size: 0.78rem; }
-      .sub-chip { padding: 5px 11px; font-size: 0.74rem; }
+    @media (max-width:640px) {
+      .hero { padding:44px 16px 40px; }
+      .categories-grid { grid-template-columns:1fr 1fr; }
+      .cat-card { min-height:150px; padding:20px 18px; }
+      .cat-card-icon { font-size:2rem; }
+      .subcats-grid { grid-template-columns:1fr 1fr; }
+      .venues-grid { grid-template-columns:1fr; }
+    }
+    @media (max-width:380px) {
+      .categories-grid { grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -560,82 +319,68 @@
   </div>
 </header>
 
-<div class="nav-area">
-  <div class="nav-tabs">
-    <button class="nav-tab active" id="tabAll" onclick="switchTab('all')">All Ideas <span class="tab-count" id="allCount">49</span></button>
-    <button class="nav-tab" id="tabSaved" onclick="switchTab('saved')">Saved <span class="tab-count" id="savedCount">0</span></button>
+<div class="search-section">
+  <div class="search-bar">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+    <input type="text" id="searchInput" placeholder="Search parks, zoos, restaurants, classes...">
+    <span class="search-count" id="searchCount"></span>
   </div>
 </div>
 
-<div class="controls-panel">
-  <div class="controls-inner">
-    <div class="search-wrap">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
-      <input type="text" id="searchInput" placeholder="Search parks, zoos, restaurants, classes...">
-      <span class="result-count" id="resultCount"></span>
-    </div>
-    <div class="filter-group">
-      <div class="filter-row" id="categoryFilters">
-        <span class="filter-label">Category</span>
-        <button class="chip" data-category="outdoor"><span class="chip-icon">&#9728;&#65039;</span> Outdoor</button>
-        <button class="chip" data-category="indoor"><span class="chip-icon">&#127968;</span> Indoor</button>
-        <button class="chip" data-category="arts_culture"><span class="chip-icon">&#127912;</span> Arts</button>
-        <button class="chip" data-category="food_dining"><span class="chip-icon">&#127869;</span> Food</button>
-        <button class="chip" data-category="seasonal_events"><span class="chip-icon">&#127875;</span> Seasonal</button>
-        <button class="chip" data-category="day_trips"><span class="chip-icon">&#128663;</span> Day Trips</button>
-        <button class="chip" data-category="hidden_gems"><span class="chip-icon">&#128142;</span> Gems</button>
-      </div>
-    </div>
-    <!-- Subcategory row appears when a category is selected -->
-    <div class="subcategory-row" id="subcategoryRow">
-      <div class="subcategory-inner" id="subcategoryInner">
-        <span class="filter-label">Subcategory</span>
-      </div>
-    </div>
-    <div class="filter-group">
-      <div class="filter-row">
-        <span class="filter-label">Budget</span>
-        <button class="chip" data-cost="free">Free</button>
-        <button class="chip" data-cost="$">$</button>
-        <button class="chip" data-cost="$$">$$</button>
-        <button class="chip" data-cost="$$$">$$$</button>
-        <span style="width: 8px"></span>
-        <span class="filter-label">Setting</span>
-        <button class="chip" data-setting="outdoor">Outdoor</button>
-        <button class="chip" data-setting="indoor">Indoor</button>
-        <button class="chip" data-setting="both">Both</button>
-        <button class="clear-btn" id="clearAll">Clear all</button>
-      </div>
+<div class="tab-bar">
+  <button class="tab-btn active" id="tabAll" onclick="switchTab('all')">Explore <span class="tab-count" id="allCount">49</span></button>
+  <button class="tab-btn" id="tabSaved" onclick="switchTab('saved')">Saved <span class="tab-count" id="savedCount">0</span></button>
+</div>
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb" id="breadcrumb"></nav>
+
+<!-- Search results heading -->
+<div class="search-results-heading" id="searchResultsHeading">
+  <h2>Search Results <span class="clear-search" onclick="clearSearch()">Clear search</span></h2>
+</div>
+
+<!-- VIEWS -->
+<div id="viewCategories" class="view-container">
+  <div class="section-heading"><h2>Choose a Category</h2><p>Pick what you're in the mood for today</p></div>
+  <div class="categories-grid" id="categoriesGrid"></div>
+</div>
+
+<div id="viewSubcategories" class="view-container hidden">
+  <div class="section-heading" id="subcatHeading"></div>
+  <div class="subcats-grid" id="subcatsGrid"></div>
+</div>
+
+<div id="viewVenues" class="view-container hidden">
+  <div class="section-heading" id="venueHeading"></div>
+  <div class="venues-grid" id="venuesGrid"></div>
+</div>
+
+<div id="viewSearch" class="view-container hidden">
+  <div class="venues-grid" id="searchGrid"></div>
+</div>
+
+<div id="viewSaved" class="view-container hidden">
+  <div class="section-heading"><h2>Your Saved Places</h2><p>Activities you've hearted for later</p></div>
+  <div class="venues-grid" id="savedGrid"></div>
+</div>
+
+<!-- Extras (shown on home only) -->
+<div id="extrasSection" class="extras">
+  <div class="extras-section">
+    <h3 class="extras-title">Rainy Day Emergency List</h3>
+    <div class="rainy-inner">
+      <div class="rainy-list" id="rainyList"></div>
     </div>
   </div>
-</div>
-
-<div class="grid-container"><div class="cards-grid" id="cardsGrid"></div></div>
-
-<div class="rainy-banner" id="rainySection">
-  <div class="rainy-inner">
-    <h3>Rainy Day Emergency List</h3>
-    <div class="rainy-list">
-      <span class="rainy-item">Liberty Science Center</span>
-      <span class="rainy-item">Krayon Park</span>
-      <span class="rainy-item">Just Play!</span>
-      <span class="rainy-item">Funzy Playground</span>
-      <span class="rainy-item">JC Library Story Time</span>
-      <span class="rainy-item">Gymboree</span>
-      <span class="rainy-item">The Hive</span>
-      <span class="rainy-item">Imagine That!!!</span>
-    </div>
+  <div class="extras-section">
+    <h3 class="extras-title">Weekly Fun Planner</h3>
+    <div class="planner-grid" id="plannerGrid"></div>
   </div>
-</div>
-
-<div class="section-block" id="plannerSection">
-  <h2 class="section-title">Weekly Fun Planner</h2>
-  <div class="planner-grid" id="plannerGrid"></div>
-</div>
-
-<div class="section-block" id="tipsSection">
-  <h2 class="section-title">Pro Tips for Jay &amp; Kate</h2>
-  <div class="tips-grid" id="tipsGrid"></div>
+  <div class="extras-section">
+    <h3 class="extras-title">Pro Tips for Jay &amp; Kate</h3>
+    <div class="tips-grid" id="tipsGrid"></div>
+  </div>
 </div>
 
 <footer>Made with <span class="heart">&#10084;</span> for <strong>Jay, Kate &amp; Estella</strong> &mdash; Jersey City, NJ</footer>
@@ -644,56 +389,61 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ===== SUBCATEGORY DEFINITIONS =====
+// ===== DATA =====
+const catMeta = {
+  outdoor: { name:"Outdoor Adventures", icon:"\u2600\uFE0F", desc:"Parks, playgrounds, waterfront strolls and splash pads" },
+  indoor: { name:"Indoor Fun", icon:"\uD83C\uDFE0", desc:"Play spaces, museums, and libraries for any weather" },
+  arts_culture: { name:"Arts & Culture", icon:"\uD83C\uDFA8", desc:"Music classes, dance, fitness, and creative play" },
+  food_dining: { name:"Food & Dining", icon:"\uD83C\uDF7D\uFE0F", desc:"Kid-friendly restaurants, ice cream, and markets" },
+  seasonal_events: { name:"Seasonal Events", icon:"\uD83C\uDF89", desc:"Festivals, holiday markets, and seasonal fun" },
+  day_trips: { name:"Day Trips", icon:"\uD83D\uDE97", desc:"Zoos, aquariums, farms, and museums worth the drive" },
+  hidden_gems: { name:"Hidden Gems", icon:"\uD83D\uDC8E", desc:"Local favorites and secret spots parents love" },
+};
+
 const subcategoryDefs = {
   outdoor: [
-    {key:"parks", label:"Parks & Playgrounds", icon:"\uD83C\uDF33"},
-    {key:"waterfront", label:"Waterfront", icon:"\uD83C\uDF0A"},
-    {key:"water_play", label:"Water Play", icon:"\uD83D\uDCA6"},
+    {key:"parks", label:"Parks & Playgrounds", icon:"\uD83C\uDF33", desc:"Green spaces, slides, swings, and room to run"},
+    {key:"waterfront", label:"Waterfront", icon:"\uD83C\uDF0A", desc:"Scenic walks with skyline views"},
+    {key:"water_play", label:"Water Play", icon:"\uD83D\uDCA6", desc:"Spraygrounds and splash pads"},
   ],
   indoor: [
-    {key:"play_spaces", label:"Play Spaces", icon:"\uD83E\uDDF8"},
-    {key:"museums", label:"Museums", icon:"\uD83C\uDFDB\uFE0F"},
-    {key:"libraries", label:"Libraries", icon:"\uD83D\uDCDA"},
+    {key:"play_spaces", label:"Play Spaces", icon:"\uD83E\uDDF8", desc:"Slides, ball pits, and indoor playgrounds"},
+    {key:"museums", label:"Museums", icon:"\uD83C\uDFDB\uFE0F", desc:"Interactive exhibits and learning"},
+    {key:"libraries", label:"Libraries", icon:"\uD83D\uDCDA", desc:"Free story time and activities"},
   ],
   arts_culture: [
-    {key:"music", label:"Music & Movement", icon:"\uD83C\uDFB5"},
-    {key:"dance", label:"Dance & Fitness", icon:"\uD83D\uDC83"},
-    {key:"creative_play", label:"Creative Play", icon:"\uD83C\uDFAD"},
+    {key:"music", label:"Music & Movement", icon:"\uD83C\uDFB5", desc:"Sing, play instruments, and dance"},
+    {key:"dance", label:"Dance & Fitness", icon:"\uD83D\uDC83", desc:"Gymnastics, yoga, and movement classes"},
+    {key:"creative_play", label:"Creative Play", icon:"\uD83C\uDFAD", desc:"Structured toddler activities"},
   ],
   food_dining: [
-    {key:"restaurants", label:"Restaurants", icon:"\uD83C\uDF55"},
-    {key:"treats", label:"Ice Cream & Treats", icon:"\uD83C\uDF66"},
-    {key:"markets", label:"Markets", icon:"\uD83E\uDDFA"},
+    {key:"restaurants", label:"Restaurants", icon:"\uD83C\uDF55", desc:"Family-friendly spots with kids menus"},
+    {key:"treats", label:"Ice Cream & Treats", icon:"\uD83C\uDF66", desc:"Sweet spots for the whole family"},
+    {key:"markets", label:"Markets", icon:"\uD83E\uDDFA", desc:"Fresh produce and artisanal goods"},
   ],
   seasonal_events: [
-    {key:"spring", label:"Spring", icon:"\uD83C\uDF38"},
-    {key:"summer", label:"Summer", icon:"\u2600\uFE0F"},
-    {key:"fall", label:"Fall", icon:"\uD83C\uDF42"},
-    {key:"winter", label:"Winter", icon:"\u2744\uFE0F"},
+    {key:"spring", label:"Spring", icon:"\uD83C\uDF38", desc:"Cherry blossoms, daffodils, and festivals"},
+    {key:"summer", label:"Summer", icon:"\u2600\uFE0F", desc:"Spraygrounds and outdoor fun"},
+    {key:"fall", label:"Fall", icon:"\uD83C\uDF42", desc:"Street fairs and harvest activities"},
+    {key:"winter", label:"Winter", icon:"\u2744\uFE0F", desc:"Ice skating and holiday markets"},
   ],
   day_trips: [
-    {key:"zoos", label:"Zoos", icon:"\uD83E\uDD81"},
-    {key:"aquariums", label:"Aquariums", icon:"\uD83D\uDC20"},
-    {key:"museums_dt", label:"Museums", icon:"\uD83C\uDFDB\uFE0F"},
-    {key:"farms", label:"Farms", icon:"\uD83D\uDC04"},
-    {key:"landmarks", label:"Landmarks", icon:"\uD83D\uDDFD"},
+    {key:"zoos", label:"Zoos", icon:"\uD83E\uDD81", desc:"See animals up close"},
+    {key:"aquariums", label:"Aquariums", icon:"\uD83D\uDC20", desc:"Underwater adventures"},
+    {key:"museums_dt", label:"Museums", icon:"\uD83C\uDFDB\uFE0F", desc:"Interactive exhibits worth the drive"},
+    {key:"farms", label:"Farms", icon:"\uD83D\uDC04", desc:"Petting zoos and fruit picking"},
+    {key:"landmarks", label:"Landmarks", icon:"\uD83D\uDDFD", desc:"Iconic experiences and sightseeing"},
   ],
   hidden_gems: [
-    {key:"cafes", label:"Cafes & Play", icon:"\u2615"},
-    {key:"play_spots", label:"Play Spots", icon:"\uD83C\uDFAA"},
-    {key:"free_activities", label:"Free Activities", icon:"\uD83C\uDD93"},
-    {key:"nature", label:"Nature", icon:"\uD83C\uDF3F"},
-    {key:"waterfront_hg", label:"Waterfront", icon:"\uD83C\uDF0A"},
+    {key:"cafes", label:"Cafes & Play", icon:"\u2615", desc:"Coffee for parents, play for kids"},
+    {key:"play_spots", label:"Play Spots", icon:"\uD83C\uDFAA", desc:"Local favorites for toddlers"},
+    {key:"free_activities", label:"Free Activities", icon:"\uD83C\uDD93", desc:"Fun that doesn't cost a thing"},
+    {key:"nature", label:"Nature", icon:"\uD83C\uDF3F", desc:"Nature centers and wildlife"},
+    {key:"waterfront_hg", label:"Waterfront", icon:"\uD83C\uDF0A", desc:"Family fun by the water"},
   ],
 };
 
-const subcatLabels = {};
-Object.values(subcategoryDefs).forEach(subs => subs.forEach(s => { subcatLabels[s.key] = s.label; }));
-
-// ===== ACTIVITIES DATA =====
 const activities = [
-  // === OUTDOOR ===
   {id:1,name:"Liberty State Park",category:"outdoor",subcategory:"parks",description:"A sprawling 1,212-acre waterfront park with a 2-mile promenade, two playgrounds, picnic areas, and the Nature Center. Stunning Statue of Liberty and Manhattan views.",toddler:"Playground has low slides, bouncy bridges, a pretend sailing ship, and water features in summer. Perfectly stroller-friendly.",cost:"Free",costTier:"free",setting:"Outdoor",address:"200 Morris Pesin Dr, Jersey City, NJ 07305",area:"Southern JC",tag:"Must-Visit Park",hours:"Dawn to dusk daily",tips:"Pack a picnic. Visit the Nature Center for free storytime. Liberty Express mini train runs weekends & holidays.",rating:4.7,reviewCount:12840,website:"https://www.nj.gov/dep/parksandforests/parks/libertystatepark.html"},
   {id:2,name:"Hamilton Park",category:"outdoor",subcategory:"parks",description:"Crown jewel of downtown JC with three playgrounds, a water park area, and gorgeous green spaces surrounded by restaurants.",toddler:"Dedicated tots playground plus seasonal water park. Flat, fenced layout perfect for little ones learning to walk.",cost:"Free",costTier:"free",setting:"Outdoor",address:"1 West Hamilton Pl, Jersey City, NJ 07302",area:"Downtown JC",tag:"Best Downtown Park",hours:"Dawn to dusk",tips:"Hit the Saturday Farmers Market. Great restaurants nearby for a post-park meal.",rating:4.6,reviewCount:2150},
   {id:3,name:"Newport Green Park",category:"outdoor",subcategory:"parks",description:"Modern park with separate playground areas for preschool and elementary kids, a splash pad, and a carousel.",toddler:"Preschool-specific play sets perfectly sized for toddlers. Carousel is a huge hit, splash pad ideal for summer.",cost:"Free (carousel ~$3)",costTier:"free",setting:"Outdoor",address:"14th St, Jersey City, NJ 07310",area:"Newport",tag:"Carousel & Splash Pad",hours:"Dawn to dusk; carousel varies",tips:"Bring swimsuits for the splash pad in summer.",rating:4.5,reviewCount:1820},
@@ -702,8 +452,6 @@ const activities = [
   {id:6,name:"Hoboken Waterfront & Pier A",category:"outdoor",subcategory:"waterfront",description:"Beautiful waterfront path along the Hudson with Manhattan skyline views, parks, playgrounds, and walking paths.",toddler:"Wide stroller-friendly walkway. Multiple playgrounds along the route. Pier A has grassy areas and room to run.",cost:"Free",costTier:"free",setting:"Outdoor",address:"Hoboken Waterfront, NJ 07030",area:"Hoboken",tag:"Scenic Stroll",hours:"Open 24 hours",tips:"Walk south from Hoboken Terminal. Great for sunset walks.",rating:4.7,reviewCount:8450},
   {id:7,name:"Van Vorst Park",category:"outdoor",subcategory:"parks",description:"Charming historic park in downtown JC with gardens, a playground, and a Saturday farmers market amid brownstones.",toddler:"Compact and well-maintained, perfect for toddlers needing a contained play area.",cost:"Free",costTier:"free",setting:"Outdoor",address:"Jersey Ave & Montgomery St, JC 07302",area:"Downtown JC",tag:"Charming Park & Market",hours:"Dawn to dusk; Market: Saturdays",tips:"Visit Saturday mornings for the farmers market.",rating:4.5,reviewCount:1340},
   {id:8,name:"Lincoln Park",category:"outdoor",subcategory:"parks",description:"Historic park founded in 1905 with a dedicated preschooler playground, sports facilities, and expansive green spaces.",toddler:"Clean, safe playground with climbing areas, slides, and interactive parts to turn, push, and pull.",cost:"Free",costTier:"free",setting:"Outdoor",address:"Lincoln Park, Jersey City, NJ 07304",area:"West Side",tag:"Historic Green Space",hours:"Dawn to dusk",tips:"Lots of open green space. Connects to a nice walking path.",rating:4.3,reviewCount:2680},
-
-  // === INDOOR ===
   {id:9,name:"Liberty Science Center",category:"indoor",subcategory:"museums",description:"World-class interactive science museum with 12 exhibitions, the largest planetarium in the Western Hemisphere, and 110+ animal species.",toddler:"Wobbly World designed for ages 0-5 with soft sensory play. Toddlers love the aquariums, Dino Dig, and Great Train Set.",cost:"$$$",costTier:"$$$",setting:"Indoor",address:"222 Jersey City Blvd, JC 07305",area:"Liberty State Park",tag:"Must-Visit Museum",hours:"Wed-Sun, 10am-5pm",tips:"Buy tickets online. Head to Wobbly World first. Free community nights available.",rating:4.5,reviewCount:15200,website:"https://lsc.org"},
   {id:10,name:"Just Play! Indoor Play & Cafe",category:"indoor",subcategory:"play_spaces",description:"Indoor playground for babies to age 7 with a cafe where parents grab coffee while kids explore.",toddler:"Slides, ball pit, and equipment for the smallest kids. Toddler section separated from older kids.",cost:"$$",costTier:"$$",setting:"Indoor",address:"125 River Drive South, JC 07310",area:"Downtown JC",tag:"Play & Coffee Combo",hours:"Check website",tips:"Great rainy day option. Socks required.",rating:4.4,reviewCount:380},
   {id:11,name:"Krayon Park",category:"indoor",subcategory:"play_spaces",description:"Vibrant indoor play space with climbing structures, slides, swings, ball pits, and trampolines.",toddler:"Separate soft-play areas for the smallest children. Also hosts music classes.",cost:"$$",costTier:"$$",setting:"Indoor",address:"206 Van Vorst St, 2nd Floor, JC 07302",area:"Downtown JC",tag:"Toddler Playground Paradise",hours:"Check website",tips:"Book ahead for weekends. Hosts A Sound Start music classes.",rating:4.6,reviewCount:520},
@@ -711,16 +459,12 @@ const activities = [
   {id:13,name:"Sunshine Village",category:"indoor",subcategory:"play_spaces",description:"Play space exclusively for ages 0-5 with open play sessions and structured classes.",toddler:"Everything perfectly sized and safe for under-5s. No big kids running around.",cost:"$$",costTier:"$$",setting:"Indoor",address:"JC/Hoboken area",area:"JC/Hoboken",tag:"Ages 0-5 Only",hours:"Check website",tips:"Monthly memberships are great value if you go frequently.",rating:4.5,reviewCount:210},
   {id:14,name:"JC Free Public Library",category:"indoor",subcategory:"libraries",description:"Free story time, sing-alongs, music, arts and crafts, and author visits across multiple branches.",toddler:"Free story time for ages 0-5 with stories, songs, fingerplays, dancing, and take-home crafts.",cost:"Free",costTier:"free",setting:"Indoor",address:"Main: 472 Jersey Ave, JC 07302",area:"Multiple locations",tag:"Free Storytime",hours:"Storytime: Wed & Thu",tips:"Also check outdoor story hour at Coles Street Market, Tuesdays 4-5 PM.",rating:4.4,reviewCount:1560,website:"https://www.jclibrary.org"},
   {id:15,name:"Spark Place",category:"indoor",subcategory:"play_spaces",description:"Play space designed by local parents for kids 6 and under, with a special section for crawlers and early walkers.",toddler:"Dedicated crawler/early walker area so Estella can explore safely at her own pace.",cost:"$$",costTier:"$$",setting:"Indoor",address:"Hoboken, NJ",area:"Hoboken",tag:"Parent-Designed Play",hours:"Check website",tips:"Popular with the Hoboken/JC parent community.",rating:4.6,reviewCount:340},
-
-  // === ARTS & CULTURE ===
   {id:16,name:"A Sound Start Music",category:"arts_culture",subcategory:"music",description:"Beloved music program for families including the bilingual Canta Conmigo program.",toddler:"Whole family participates. Music, movement, and singing are perfect for toddler development.",cost:"$$",costTier:"$$",setting:"Indoor",address:"Krayon Park, 206 Van Vorst St, JC",area:"Downtown JC",tag:"Music & Movement",hours:"Check asoundstart.com",tips:"Registration fills fast. Bilingual Canta Conmigo is unique.",rating:4.8,reviewCount:185,website:"https://www.asoundstart.com"},
   {id:17,name:"Gymboree Play & Music",category:"arts_culture",subcategory:"music",description:"Hands-on play classes for babies, toddlers, and preschoolers in art, music, and school skills.",toddler:"Age-grouped classes so Estella is with peers. Combines music, art, and physical play.",cost:"$$",costTier:"$$",setting:"Indoor",address:"Jersey City, NJ",area:"Jersey City",tag:"Play & Learn Classes",hours:"Check gymboreeclasses.com",tips:"Try a free intro class first. Great for socialization.",rating:4.3,reviewCount:420,website:"https://www.gymboreeclasses.com"},
   {id:18,name:"Rockness Music",category:"arts_culture",subcategory:"music",description:"Unique music program combining classes with Spanish language, culture, and Latin American instruments.",toddler:"High-energy music, rhythm instruments, and movement with Spanish language exposure.",cost:"$$",costTier:"$$",setting:"Indoor",address:"JC/Hoboken area",area:"JC/Hoboken",tag:"Bilingual Music",hours:"Check for schedule",tips:"Great complement to A Sound Start if Estella loves music.",rating:4.7,reviewCount:145},
   {id:19,name:"Romparoo",category:"arts_culture",subcategory:"creative_play",description:"Play-and-learn space with energetic staff leading structured toddler activities and story time.",toddler:"Perfect size with energetic staff. Story time at end of class helps wind down.",cost:"$$",costTier:"$$",setting:"Indoor",address:"JC/Hoboken area",area:"JC/Hoboken",tag:"Structured Toddler Play",hours:"Check website",tips:"Highly rated by local parents.",rating:4.5,reviewCount:175},
   {id:20,name:"My Gym Children's Fitness",category:"arts_culture",subcategory:"dance",description:"Structured fitness with age-appropriate gymnastics, movement, music, and social interaction.",toddler:"Motor skill development through fun. Estella can climb, tumble, and swing safely.",cost:"$$",costTier:"$$",setting:"Indoor",address:"JC/Hoboken area",area:"JC/Hoboken",tag:"Toddler Fitness & Fun",hours:"Check mygym.com",tips:"Free trial classes usually available.",rating:4.4,reviewCount:310,website:"https://www.mygym.com"},
   {id:21,name:"Kinderdance",category:"arts_culture",subcategory:"dance",description:"Movement-based classes blending dance, yoga, and gymnastics in 45-minute sessions.",toddler:"Develops coordination, balance, and body awareness in a fun way.",cost:"$$",costTier:"$$",setting:"Indoor",address:"JC/Hoboken area",area:"JC/Hoboken",tag:"Dance & Movement",hours:"45-min classes",tips:"Dance and yoga are great for toddler development.",rating:4.3,reviewCount:120},
-
-  // === FOOD & DINING ===
   {id:22,name:"Two Boots",category:"food_dining",subcategory:"restaurants",description:"Colorful family-friendly restaurant serving Cajun-Italian pizza with comfy banquettes and occasional live music.",toddler:"Fun atmosphere, comfy booth seating for wiggly eaters. Pizza is always a toddler win.",cost:"$$",costTier:"$$",setting:"Indoor",address:"133 Newark Ave, JC 07302",area:"Downtown JC",tag:"Fun & Colorful Pizza",hours:"Daily, lunch & dinner",tips:"Sidewalk seating in nice weather.",rating:4.2,reviewCount:1450},
   {id:23,name:"City Diner",category:"food_dining",subcategory:"restaurants",description:"Beloved JC institution with 25+ pancake variations including M&Ms, Oreos, Nutella, and bacon.",toddler:"Cushioned booths are toddler-friendly. Fluffy pancakes and waffles are toddler-approved staples.",cost:"$$",costTier:"$$",setting:"Indoor",address:"394 Jersey Ave, JC 07302",area:"Downtown JC",tag:"Best Pancakes in Town",hours:"Daily; breakfast all day",tips:"Come for brunch. Can get crowded on weekends.",rating:4.4,reviewCount:2280},
   {id:24,name:"Skinner's Loft",category:"food_dining",subcategory:"restaurants",description:"Family-friendly restaurant offering markers, paper, and stickers alongside a dedicated kids menu.",toddler:"Markers, paper, and stickers keep toddlers occupied while waiting for food.",cost:"$$",costTier:"$$",setting:"Indoor",address:"146 Newark Ave, JC 07302",area:"Downtown JC",tag:"Dine & Color",hours:"Lunch & dinner; brunch weekends",tips:"Ask for the kids activity kit when you sit down.",rating:4.3,reviewCount:1680},
@@ -728,16 +472,12 @@ const activities = [
   {id:26,name:"Torico Ice Cream",category:"food_dining",subcategory:"treats",description:"JC ice cream institution since 1968, voted best in NJ. Over 65 flavors, natural ingredients.",toddler:"65+ flavors for even the pickiest toddler. A generations-old family tradition.",cost:"$",costTier:"$",setting:"Indoor",address:"736 Bergen Ave, JC 07306",area:"Journal Square",tag:"Legendary Ice Cream",hours:"Daily; hours vary",tips:"Ask for a sample first. Line gets long on hot days.",rating:4.6,reviewCount:4120},
   {id:27,name:"Milk Sugar Love",category:"food_dining",subcategory:"treats",description:"Artisanal ice cream and baked goods from scratch with all-natural, local ingredients.",toddler:"Fruity Pebbles and fun flavors for toddlers. All-natural for parents' peace of mind.",cost:"$$",costTier:"$$",setting:"Indoor",address:"19 Essex St, JC 07302",area:"Downtown JC",tag:"Artisanal Ice Cream",hours:"Check website",tips:"Try Fruity Pebbles for Estella, Earl Gray Fudge for adults.",rating:4.5,reviewCount:1890,website:"https://www.milksugarlove.com"},
   {id:28,name:"Grove St Farmers Market",category:"food_dining",subcategory:"markets",description:"Vibrant market Mondays and Thursdays, late April through December. Fresh produce and artisanal foods.",toddler:"Wonderful sensory experience - colorful fruits, fragrant flowers, friendly vendors.",cost:"$",costTier:"$",setting:"Outdoor",address:"Grove Street PATH Plaza, JC 07302",area:"Downtown JC",tag:"Fresh Market Fun",hours:"Mon & Thu, late Apr-Dec",tips:"Arrive early for best selection.",rating:4.5,reviewCount:1240},
-
-  // === SEASONAL EVENTS ===
   {id:29,name:"Newport Skates",category:"seasonal_events",subcategory:"winter",description:"JC's only outdoor ice skating rink with a festive waterfront setting during winter.",toddler:"Many rinks offer skate aids for little ones. The festive atmosphere alone is fun.",cost:"$$",costTier:"$$",setting:"Outdoor",address:"Newport, Jersey City",area:"Newport",tag:"Winter Wonderland",hours:"Nov-March",tips:"Dress warmly. Check for toddler skate aids.",rating:4.2,reviewCount:860},
   {id:30,name:"All About Downtown Street Fair",category:"seasonal_events",subcategory:"fall",description:"Annual mega street fair with 200+ businesses, food, live music, rides, and kid activities.",toddler:"Kid-friendly rides section designed for young children.",cost:"$",costTier:"$",setting:"Outdoor",address:"Downtown JC",area:"Downtown JC",tag:"Annual Festival",hours:"One Saturday in September",tips:"Go early before crowds.",rating:4.4,reviewCount:520},
   {id:31,name:"Cherry Blossom Festival",category:"seasonal_events",subcategory:"spring",description:"50th anniversary (2026) at Branch Brook Park with thousands of cherry blossom trees and Bloomfest.",toddler:"Pink blossoms are magical - like walking through a fairy tale. Flat stroller-friendly paths.",cost:"Free",costTier:"free",setting:"Outdoor",address:"Branch Brook Park, Newark, NJ",area:"Newark (15 min)",tag:"Spring Spectacle",hours:"April 11-19, 2026",tips:"2026 is the 50th anniversary! Light Rail from JC stops nearby.",rating:4.6,reviewCount:6780,website:"https://www.branchbrookpark.org"},
   {id:32,name:"Free Sprayground Season",category:"seasonal_events",subcategory:"summer",description:"Memorial Day through Labor Day, three free spraygrounds at Berry Lane, Newport Green, and Hamilton Park.",toddler:"Free water play is the ultimate toddler summer activity.",cost:"Free",costTier:"free",setting:"Outdoor",address:"Multiple JC locations",area:"Multiple",tag:"Summer Splash",hours:"Memorial Day - Labor Day",tips:"Bring swimsuit, towel, sunscreen.",rating:4.5,reviewCount:430},
   {id:33,name:"Holiday Square Market",category:"seasonal_events",subcategory:"winter",description:"Holiday market Wed-Sun in December with vendors, treats, and festive activities.",toddler:"Lights, decorations, and holiday atmosphere delight toddlers.",cost:"$",costTier:"$",setting:"Outdoor",address:"Downtown JC",area:"Downtown JC",tag:"Holiday Magic",hours:"Wed-Sun in December",tips:"Go on a weekday evening for fewer crowds.",rating:4.3,reviewCount:310},
   {id:34,name:"Daffodil Day Festival",category:"seasonal_events",subcategory:"spring",description:"Annual spring festival with 50,000+ daffodils, games, crafts, a story trail, and music.",toddler:"Story trail is perfect for toddlers. 50,000 yellow flowers create a wonderland.",cost:"$",costTier:"$",setting:"Outdoor",address:"Reeves-Reed Arboretum, Summit, NJ",area:"Summit (~30 min)",tag:"Spring Flowers & Fun",hours:"Annual spring event",tips:"Story trail is a must. Wear boots.",rating:4.5,reviewCount:680,website:"https://www.reeves-reedarboretum.org"},
-
-  // === DAY TRIPS ===
   {id:35,name:"Turtle Back Zoo",category:"day_trips",subcategory:"zoos",description:"Top-rated zoo with giraffes, sea lions, penguins, butterflies, playground, and a train ride. Over 200 species on 20 acres.",toddler:"Perfectly sized - exciting but not exhausting. Train ride and carousel are extras. Petting zoo is a must.",cost:"$$",costTier:"$$",setting:"Outdoor",address:"560 Northfield Ave, West Orange, NJ 07052",area:"West Orange (~25 min)",tag:"Best Local Zoo",hours:"Daily 10am-4:30pm",tips:"Zoo train and carousel are must-dos. Weekday mornings least crowded.",rating:4.5,reviewCount:9840,website:"https://www.turtlebackzoo.com"},
   {id:36,name:"Bergen County Zoo",category:"day_trips",subcategory:"zoos",description:"Free-admission zoo at Van Saun Park with bison, lions, birds, farm animals, train, and pony rides.",toddler:"Free admission for guilt-free repeat visits. Farm animals and pony rides are toddler favorites.",cost:"Free",costTier:"free",setting:"Outdoor",address:"216 Forest Ave, Paramus, NJ 07652",area:"Paramus (~30 min)",tag:"Free Zoo!",hours:"Daily 10am-4:30pm",tips:"Free admission! Pack a lunch for the picnic area.",rating:4.3,reviewCount:4560,website:"https://www.co.bergen.nj.us/bergen-county-zoo"},
   {id:37,name:"Imagine That!!! Museum",category:"day_trips",subcategory:"museums_dt",description:"16,000 sq ft interactive museum for preschoolers with castle, pirate ship, and pretend grocery store.",toddler:"Everything designed for preschool age. Pretend grocery store is usually the biggest hit.",cost:"$$",costTier:"$$",setting:"Indoor",address:"4 Vreeland Rd, Florham Park, NJ 07932",area:"Florham Park (~30 min)",tag:"Imagination Station",hours:"Check website",tips:"Allow 2-3 hours. Great rainy day trip.",rating:4.4,reviewCount:2340,website:"https://www.imaginethatmuseum.com"},
@@ -746,8 +486,6 @@ const activities = [
   {id:40,name:"Adventure Aquarium",category:"day_trips",subcategory:"aquariums",description:"15,000+ aquatic animals including hippos, penguins, sharks. Features KidZone playground and touch tanks.",toddler:"KidZone for young children. Hippos, penguins, and colorful fish captivate toddlers.",cost:"$$$",costTier:"$$$",setting:"Indoor",address:"1 Riverside Dr, Camden, NJ 08103",area:"Camden (~90 min)",tag:"Underwater Adventure",hours:"Daily 10am-5pm",tips:"Longer drive but worth it. Hippos are the star.",rating:4.4,reviewCount:18600,website:"https://www.adventureaquarium.com"},
   {id:41,name:"Newark Museum of Art",category:"day_trips",subcategory:"museums_dt",description:"NJ's largest museum with planetarium, interactive galleries, and arts programs. 80+ galleries.",toddler:"Planetarium captivates toddlers. Interactive galleries let kids touch and explore.",cost:"$",costTier:"$",setting:"Indoor",address:"49 Washington St, Newark, NJ 07102",area:"Newark (~15 min)",tag:"NJ's Biggest Museum",hours:"Wed-Sun, 12-5pm",tips:"Free first Thursdays.",rating:4.4,reviewCount:5890,website:"https://www.newarkmuseumart.org"},
   {id:42,name:"Morris Museum",category:"day_trips",subcategory:"museums_dt",description:"Charming museum with musical dolls, Mega Model Trains, and Dinosaur Den.",toddler:"Musical dolls are mesmerizing. Model trains captivate train lovers.",cost:"$$",costTier:"$$",setting:"Indoor",address:"6 Normandy Heights Rd, Morristown, NJ 07960",area:"Morristown (~35 min)",tag:"Trains & Dinosaurs",hours:"Wed-Sun",tips:"Model trains are worth the trip.",rating:4.3,reviewCount:1480,website:"https://morrismuseum.org"},
-
-  // === HIDDEN GEMS ===
   {id:43,name:"The Hive",category:"hidden_gems",subcategory:"cafes",description:"Cheerful Hoboken coffee shop with a dedicated play space filled with toys and books.",toddler:"Play space keeps kids busy while parents sip real coffee. Everyone wins.",cost:"$",costTier:"$",setting:"Indoor",address:"Hoboken, NJ",area:"Hoboken",tag:"Coffee + Play = Win",hours:"Check website",tips:"The hidden gem every parent needs.",rating:4.5,reviewCount:420},
   {id:44,name:"The Little Play Co.",category:"hidden_gems",subcategory:"play_spots",description:"Voted Best Kid's Activity by Hoboken Girl. Drop-in play for ages 9 months to 5 years.",toddler:"Designed for exactly Estella's age range. Two-hour sessions are perfect.",cost:"$$",costTier:"$$",setting:"Indoor",address:"Hoboken, NJ",area:"Hoboken",tag:"Local Favorite",hours:"Drop-in sessions",tips:"Voted best by local parents. Weekday mornings are quieter.",rating:4.7,reviewCount:290},
   {id:45,name:"Urban Jungle Play",category:"hidden_gems",subcategory:"play_spots",description:"Indoor playground with slides, swings, and a small-children area with a live fish tank.",toddler:"Dedicated small-children area. Fish tank fascinates little visitors for ages.",cost:"$$",costTier:"$$",setting:"Indoor",address:"Hoboken, NJ",area:"Hoboken",tag:"Indoor Jungle Adventure",hours:"Check website",tips:"Fish tank is a sleeper hit. Often less crowded.",rating:4.4,reviewCount:185},
@@ -757,8 +495,6 @@ const activities = [
   {id:49,name:"Hoboken Terminal",category:"hidden_gems",subcategory:"free_activities",description:"Historic Beaux-Arts train terminal. Watch NJ Transit and PATH trains come and go.",toddler:"Free way to watch real trains up close! Grand architecture impresses even toddlers.",cost:"Free",costTier:"free",setting:"Indoor",address:"1 Hudson Pl, Hoboken, NJ 07030",area:"Hoboken",tag:"Train Lover's Dream",hours:"Transit hours; avoid rush hour",tips:"Visit mid-morning. Combine with waterfront walk.",rating:4.5,reviewCount:6240},
 ];
 
-const catIcons = {outdoor:"\u2600\uFE0F",indoor:"\uD83C\uDFE0",arts_culture:"\uD83C\uDFA8",food_dining:"\uD83C\uDF7D\uFE0F",seasonal_events:"\uD83C\uDF83",day_trips:"\uD83D\uDE97",hidden_gems:"\uD83D\uDC8E"};
-
 const weeklyPlan = [
   {day:"Monday",activity:"Grove Street Farmers Market + playground at Hamilton Park",type:"Outdoor",cost:"Free"},
   {day:"Tuesday",activity:"Coles Street Story Hour (4-5 PM) or Pier 13 Funday",type:"Outdoor",cost:"Free"},
@@ -766,9 +502,8 @@ const weeklyPlan = [
   {day:"Thursday",activity:"Pavonia Branch Story Time + Grove Street Farmers Market",type:"Indoor/Outdoor",cost:"Free"},
   {day:"Friday",activity:"Music class (A Sound Start or Rockness) + Torico ice cream",type:"Indoor",cost:"$$"},
   {day:"Saturday",activity:"Liberty State Park + Nature Center + Van Vorst Market",type:"Outdoor",cost:"Free"},
-  {day:"Sunday",activity:"Riverview Market + brunch at City Diner + Newport carousel",type:"Mixed",cost:"$$"}
+  {day:"Sunday",activity:"Riverview Market + brunch at City Diner + Newport carousel",type:"Mixed",cost:"$$"},
 ];
-
 const proTips = [
   "Pack a go bag with swimsuit, towel, change of clothes, sunscreen, and snacks \u2014 many activities pop up on nice days.",
   "PATH train between JC, Hoboken, and NYC is easy \u2014 kids under 42 inches ride free!",
@@ -779,323 +514,253 @@ const proTips = [
   "The Hoboken-JC waterfront is one continuous walkable path between both cities.",
   "Newark Ave restaurants are family-friendly at 5-6 PM \u2014 go before the evening crowd.",
   "Bergen County Zoo: a real zoo with free admission, 30 minutes away. Best-kept secret.",
-  "Follow @jcfamilies on social media for the most up-to-date family events calendar."
+  "Follow @jcfamilies on social media for the most up-to-date family events calendar.",
 ];
+const rainyDayItems = ["Liberty Science Center","Krayon Park","Just Play!","Funzy Playground","JC Library Story Time","Gymboree","The Hive","Imagine That!!!"];
 
 // ===== STATE =====
-let activeCategories = new Set();
-let activeCosts = new Set();
-let activeSettings = new Set();
-let activeSubcategories = new Set();
-let searchQuery = "";
+let currentView = "categories"; // categories | subcategories | venues | search | saved
+let currentCategory = null;
+let currentSubcategory = null;
 let currentTab = "all";
 let savedIds = new Set(JSON.parse(localStorage.getItem("jk_saved") || "[]"));
 
 // ===== HELPERS =====
 function saveFavorites() { localStorage.setItem("jk_saved", JSON.stringify([...savedIds])); updateCounts(); }
-function updateCounts() {
-  document.getElementById("savedCount").textContent = savedIds.size;
-  document.getElementById("allCount").textContent = activities.length;
-}
+function updateCounts() { document.getElementById("savedCount").textContent = savedIds.size; document.getElementById("allCount").textContent = activities.length; }
 
 function toggleSave(id, btn, e) {
   e.stopPropagation();
-  if (savedIds.has(id)) {
-    savedIds.delete(id); btn.classList.remove("saved"); showToast("Removed from saved");
-  } else {
-    savedIds.add(id); btn.classList.add("saved");
-    btn.classList.remove("pop"); void btn.offsetWidth; btn.classList.add("pop");
-    showToast("Saved!");
-  }
+  if (savedIds.has(id)) { savedIds.delete(id); btn.classList.remove("saved"); showToast("Removed from saved"); }
+  else { savedIds.add(id); btn.classList.add("saved"); btn.classList.remove("pop"); void btn.offsetWidth; btn.classList.add("pop"); showToast("Saved!"); }
   saveFavorites();
-  if (currentTab === "saved") renderCards();
+  if (currentTab === "saved") showSaved();
 }
 
 let toastTimer;
-function showToast(msg) {
-  const t = document.getElementById("toast"); t.textContent = msg;
-  t.classList.add("show"); clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove("show"), 1800);
+function showToast(msg) { const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"),1800); }
+
+function renderStars(r) { const f=Math.floor(r); const h=(r-f)>=0.3?1:0; const e=5-f-h; return "\u2605".repeat(f)+(h?"\u00BD":"")+"\u2606".repeat(e); }
+function getMapUrl(item) { return "https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(item.name+", "+item.address); }
+function getDirUrl(item) { return "https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(item.address); }
+
+// ===== VIEW MANAGEMENT =====
+function showView(name) {
+  ["viewCategories","viewSubcategories","viewVenues","viewSearch","viewSaved"].forEach(id => {
+    document.getElementById(id).classList.toggle("hidden", id !== "view" + name.charAt(0).toUpperCase() + name.slice(1));
+  });
+  document.getElementById("extrasSection").style.display = (name === "categories" && currentTab === "all") ? "" : "none";
+  document.getElementById("searchResultsHeading").classList.toggle("visible", name === "search");
+  currentView = name;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function updateBreadcrumb() {
+  const bc = document.getElementById("breadcrumb");
+  if (!currentCategory) { bc.classList.remove("visible"); return; }
+  bc.classList.add("visible");
+  const cat = catMeta[currentCategory];
+  let html = `<span class="breadcrumb-item" onclick="goHome()">Home</span><span class="breadcrumb-sep">&#8250;</span>`;
+  if (currentSubcategory) {
+    html += `<span class="breadcrumb-item" onclick="openCategory('${currentCategory}')">${cat.icon} ${cat.name}</span><span class="breadcrumb-sep">&#8250;</span>`;
+    const sub = subcategoryDefs[currentCategory].find(s => s.key === currentSubcategory);
+    html += `<span class="breadcrumb-current">${sub.icon} ${sub.label}</span>`;
+  } else {
+    html += `<span class="breadcrumb-current">${cat.icon} ${cat.name}</span>`;
+  }
+  bc.innerHTML = html;
+}
+
+// ===== NAVIGATION =====
+function goHome() {
+  currentCategory = null; currentSubcategory = null;
+  document.getElementById("searchInput").value = "";
+  updateBreadcrumb(); showView("categories");
 }
 
 function switchTab(tab) {
   currentTab = tab;
   document.getElementById("tabAll").classList.toggle("active", tab === "all");
   document.getElementById("tabSaved").classList.toggle("active", tab === "saved");
-  ["rainySection","plannerSection","tipsSection"].forEach(id =>
-    document.getElementById(id).style.display = tab === "saved" ? "none" : "");
-  renderCards();
+  if (tab === "saved") { showSaved(); }
+  else { goHome(); }
 }
 
-function normSetting(s) {
-  const l = s.toLowerCase();
-  if (l.includes("/")) return "both";
-  if (l === "both") return "both";
-  return l.includes("indoor") ? "indoor" : "outdoor";
+function openCategory(catKey) {
+  currentCategory = catKey; currentSubcategory = null;
+  const cat = catMeta[catKey];
+  const subs = subcategoryDefs[catKey];
+  document.getElementById("subcatHeading").innerHTML = `<h2>${cat.icon} ${cat.name}</h2><p>${cat.desc}</p>`;
+  document.getElementById("subcatsGrid").innerHTML = subs.map(sub => {
+    const count = activities.filter(a => a.category === catKey && a.subcategory === sub.key).length;
+    const previews = activities.filter(a => a.category === catKey && a.subcategory === sub.key).slice(0,2).map(a => a.name).join(", ");
+    return `<div class="subcat-card" onclick="openSubcategory('${catKey}','${sub.key}')">
+      <div class="subcat-card-icon">${sub.icon}</div>
+      <div class="subcat-card-name">${sub.label}</div>
+      <div class="subcat-card-count">${count} place${count!==1?"s":""}</div>
+      <div class="subcat-card-preview">${previews}</div>
+    </div>`;
+  }).join("");
+  updateBreadcrumb(); showView("subcategories");
 }
 
-function getMapUrl(item) {
-  const q = encodeURIComponent(item.name + ", " + item.address);
-  return "https://www.google.com/maps/search/?api=1&query=" + q;
+function openSubcategory(catKey, subKey) {
+  currentCategory = catKey; currentSubcategory = subKey;
+  const sub = subcategoryDefs[catKey].find(s => s.key === subKey);
+  const venues = activities.filter(a => a.category === catKey && a.subcategory === subKey);
+  document.getElementById("venueHeading").innerHTML = `<h2>${sub.icon} ${sub.label}</h2><p>${sub.desc} &mdash; ${venues.length} place${venues.length!==1?"s":""}</p>`;
+  document.getElementById("venuesGrid").innerHTML = renderVenueCards(venues, catKey);
+  updateBreadcrumb(); showView("venues");
 }
 
-function getDirectionsUrl(item) {
-  const q = encodeURIComponent(item.address);
-  return "https://www.google.com/maps/dir/?api=1&destination=" + q;
+// ===== SEARCH =====
+document.getElementById("searchInput").addEventListener("input", function(e) {
+  const q = e.target.value.trim().toLowerCase();
+  if (!q) { goHome(); document.getElementById("searchCount").textContent = ""; return; }
+  const results = activities.filter(a =>
+    [a.name, a.description, a.toddler, a.tag, a.area, a.address, a.tips].join(" ").toLowerCase().includes(q)
+  );
+  document.getElementById("searchCount").textContent = results.length + " result" + (results.length !== 1 ? "s" : "");
+  document.getElementById("searchResultsHeading").querySelector("h2").innerHTML = `Showing ${results.length} result${results.length!==1?"s":""} <span class="clear-search" onclick="clearSearch()">Clear</span>`;
+  currentCategory = null; currentSubcategory = null;
+  document.getElementById("breadcrumb").classList.remove("visible");
+  document.getElementById("searchGrid").innerHTML = results.length
+    ? results.map(a => renderOneVenueCard(a)).join("")
+    : `<div class="empty-state"><div class="emoji">\uD83D\uDD0D</div><h3>No results</h3><p>Try a different search term</p></div>`;
+  showView("search");
+});
+
+function clearSearch() {
+  document.getElementById("searchInput").value = "";
+  document.getElementById("searchCount").textContent = "";
+  goHome();
 }
 
-function renderStars(rating) {
-  const full = Math.floor(rating);
-  const hasHalf = (rating - full) >= 0.3;
-  const empty = 5 - full - (hasHalf ? 1 : 0);
-  return "\u2605".repeat(full) + (hasHalf ? "\u00BD" : "") + "\u2606".repeat(empty);
+// ===== SAVED =====
+function showSaved() {
+  const saved = activities.filter(a => savedIds.has(a.id));
+  document.getElementById("savedGrid").innerHTML = saved.length
+    ? saved.map(a => renderOneVenueCard(a)).join("")
+    : `<div class="empty-state"><div class="emoji">\u2764\uFE0F</div><h3>No saved activities yet</h3><p>Tap the heart on any activity to save it here</p></div>`;
+  currentCategory = null; currentSubcategory = null;
+  document.getElementById("breadcrumb").classList.remove("visible");
+  showView("saved");
 }
 
-// ===== SUBCATEGORY RENDERING =====
-function renderSubcategories() {
-  const row = document.getElementById("subcategoryRow");
-  const inner = document.getElementById("subcategoryInner");
+// ===== RENDER VENUE CARDS =====
+function renderVenueCards(items, catKey) {
+  return items.map(a => renderOneVenueCard(a)).join("");
+}
 
-  if (activeCategories.size === 0) {
-    row.classList.remove("visible");
-    activeSubcategories.clear();
-    return;
+function renderOneVenueCard(item) {
+  const sv = savedIds.has(item.id);
+  const cc = item.costTier === "free" ? "free" : "";
+  const stars = renderStars(item.rating);
+  const mapUrl = getMapUrl(item);
+  const dirUrl = getDirUrl(item);
+
+  let links = `<a href="${mapUrl}" target="_blank" rel="noopener" class="venue-link venue-link-map">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>Map</a>
+  <a href="${dirUrl}" target="_blank" rel="noopener" class="venue-link venue-link-dir">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"/></svg>Directions</a>`;
+  if (item.website) {
+    links += `<a href="${item.website}" target="_blank" rel="noopener" class="venue-link venue-link-web">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5a17.92 17.92 0 0 1-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg>Website</a>`;
   }
 
-  // Gather all subcategories for selected categories
-  let allSubs = [];
-  activeCategories.forEach(cat => {
-    const subs = subcategoryDefs[cat] || [];
-    subs.forEach(sub => {
-      // Count how many activities match this subcategory
-      const count = activities.filter(a => a.category === cat && a.subcategory === sub.key).length;
-      allSubs.push({ ...sub, parentCat: cat, count });
-    });
-  });
-
-  // Remove subcategories that are no longer valid
-  const validKeys = new Set(allSubs.map(s => s.key));
-  activeSubcategories.forEach(k => { if (!validKeys.has(k)) activeSubcategories.delete(k); });
-
-  inner.innerHTML = '<span class="filter-label">Subcategory</span>' +
-    allSubs.map(sub => {
-      const isActive = activeSubcategories.has(sub.key) ? " active" : "";
-      return `<button class="sub-chip${isActive}" data-subcat="${sub.key}" onclick="toggleSubcategory('${sub.key}')">
-        <span class="sub-icon">${sub.icon}</span> ${sub.label}
-        <span class="sub-count">${sub.count}</span>
-      </button>`;
-    }).join("");
-
-  row.classList.add("visible");
-}
-
-function toggleSubcategory(key) {
-  if (activeSubcategories.has(key)) {
-    activeSubcategories.delete(key);
-  } else {
-    activeSubcategories.add(key);
-  }
-  renderSubcategories();
-  renderCards();
-}
-
-// ===== FILTERING =====
-function matchesFilters(item) {
-  if (currentTab === "saved" && !savedIds.has(item.id)) return false;
-  if (activeCategories.size > 0 && !activeCategories.has(item.category)) return false;
-  if (activeSubcategories.size > 0 && !activeSubcategories.has(item.subcategory)) return false;
-  if (activeCosts.size > 0 && !activeCosts.has(item.costTier)) return false;
-  if (activeSettings.size > 0 && !activeSettings.has(normSetting(item.setting))) return false;
-  if (searchQuery) {
-    const q = searchQuery.toLowerCase();
-    return [item.name, item.description, item.toddler, item.tag, item.area, item.address, item.tips, subcatLabels[item.subcategory] || ""].join(" ").toLowerCase().includes(q);
-  }
-  return true;
-}
-
-// ===== CARD RENDERING =====
-function renderCards() {
-  const grid = document.getElementById("cardsGrid");
-  const filtered = activities.filter(matchesFilters);
-  document.getElementById("resultCount").textContent = `${filtered.length} idea${filtered.length !== 1 ? "s" : ""}`;
-
-  if (!filtered.length) {
-    const m = currentTab === "saved"
-      ? { e: "\u2764\uFE0F", t: "No saved activities yet", s: "Tap the heart on any activity to save it here" }
-      : { e: "\uD83D\uDD0D", t: "No activities match", s: "Try removing some filters or changing your search" };
-    grid.innerHTML = `<div class="empty-state"><div class="emoji">${m.e}</div><h3>${m.t}</h3><p>${m.s}</p></div>`;
-    return;
-  }
-
-  grid.innerHTML = filtered.map(item => {
-    const ns = normSetting(item.setting);
-    const sc = ns === "both" ? "both" : ns === "indoor" ? "indoor" : "";
-    const cc = item.costTier === "free" ? "free" : "";
-    const sv = savedIds.has(item.id);
-    const stars = renderStars(item.rating);
-    const mapUrl = getMapUrl(item);
-    const dirUrl = getDirectionsUrl(item);
-    const subLabel = subcatLabels[item.subcategory] || "";
-
-    let detailLinks = `<a href="${mapUrl}" target="_blank" rel="noopener" class="detail-link detail-link-map">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg>
-      View on Map
-    </a>
-    <a href="${dirUrl}" target="_blank" rel="noopener" class="detail-link detail-link-directions">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z"/></svg>
-      Directions
-    </a>`;
-
-    if (item.website) {
-      detailLinks += `<a href="${item.website}" target="_blank" rel="noopener" class="detail-link detail-link-web">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5a17.92 17.92 0 0 1-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg>
-        Website
-      </a>`;
-    }
-
-    return `<div class="card cat-${item.category}">
-      <div class="card-accent"></div>
-      <button class="save-btn ${sv ? "saved" : ""}" onclick="toggleSave(${item.id},this,event)" title="Save">
-        <svg class="heart-outline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/></svg>
-        <svg class="heart-filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001Z"/></svg>
-      </button>
-      <div class="card-header">
-        <div class="card-icon-wrap">${catIcons[item.category] || ""}</div>
-        <div class="card-header-text">
-          <div class="card-name">${item.name}</div>
-          <div class="card-meta-row">
-            <span class="card-tag">${item.tag}</span>
-            <span class="card-subcat-tag">${subLabel}</span>
-          </div>
-          <div class="card-rating">
-            <span class="stars">${stars}</span>
-            <span class="rating-num">${item.rating}</span>
-            <span class="review-count">(${item.reviewCount.toLocaleString()} reviews)</span>
-          </div>
+  return `<div class="venue-card cat-${item.category}">
+    <div class="venue-accent"></div>
+    <button class="save-btn ${sv?"saved":""}" onclick="toggleSave(${item.id},this,event)" title="Save">
+      <svg class="heart-outline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/></svg>
+      <svg class="heart-filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001Z"/></svg>
+    </button>
+    <div class="venue-header">
+      <div class="venue-icon-wrap">${catMeta[item.category]?.icon || ""}</div>
+      <div class="venue-header-text">
+        <div class="venue-name">${item.name}</div>
+        <span class="venue-tag">${item.tag}</span>
+        <div class="venue-rating">
+          <span class="stars">${stars}</span>
+          <span class="rating-num">${item.rating}</span>
+          <span class="review-count">(${item.reviewCount.toLocaleString()} reviews)</span>
         </div>
       </div>
-      <div class="card-body">
-        <p class="card-desc">${item.description}</p>
-        <div class="card-toddler">${item.toddler}</div>
+    </div>
+    <div class="venue-body">
+      <p class="venue-desc">${item.description}</p>
+      <div class="venue-toddler">${item.toddler}</div>
+    </div>
+    <div class="venue-actions">${links}</div>
+    <div class="venue-details">
+      <div class="venue-details-inner">
+        ${item.address ? `<p><strong>Address:</strong> ${item.address}</p>` : ""}
+        ${item.hours ? `<p><strong>Hours:</strong> ${item.hours}</p>` : ""}
+        ${item.tips ? `<p><strong>Pro Tip:</strong> ${item.tips}</p>` : ""}
       </div>
-      <div class="card-detail">
-        <div class="card-detail-inner">
-          <div class="detail-rating-full">
-            <span class="big-stars">${stars}</span>
-            <span class="big-num">${item.rating}/5</span>
-            <span class="big-reviews">${item.reviewCount.toLocaleString()} reviews</span>
-          </div>
-          ${item.address ? `<p><strong>Address:</strong> ${item.address}</p>` : ""}
-          ${item.hours ? `<p><strong>Hours:</strong> ${item.hours}</p>` : ""}
-          ${item.tips ? `<p><strong>Pro Tip:</strong> ${item.tips}</p>` : ""}
-          <div class="detail-links">${detailLinks}</div>
-        </div>
-      </div>
-      <div class="card-footer">
-        <span class="card-pill pill-cost ${cc}">${item.cost}</span>
-        <span class="card-pill pill-setting ${sc}">${item.setting}</span>
-        <span class="card-pill pill-area">${item.area}</span>
-      </div>
-      <button class="card-expand-btn" onclick="this.closest('.card').classList.toggle('expanded');this.querySelector('.btn-text').textContent=this.closest('.card').classList.contains('expanded')?'Less':'More details &amp; links'">
-        <span class="btn-text">More details &amp; links</span>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
-      </button>
+    </div>
+    <div class="venue-footer">
+      <span class="venue-pill pill-cost ${cc}">${item.cost}</span>
+      <span class="venue-pill pill-area">${item.area}</span>
+    </div>
+    <button class="venue-toggle" onclick="this.closest('.venue-card').classList.toggle('expanded');this.querySelector('.t-text').textContent=this.closest('.venue-card').classList.contains('expanded')?'Less':'More info'">
+      <span class="t-text">More info</span>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg>
+    </button>
+  </div>`;
+}
+
+// ===== RENDER CATEGORIES (HOME) =====
+function renderCategories() {
+  const grid = document.getElementById("categoriesGrid");
+  grid.innerHTML = Object.entries(catMeta).map(([key, cat]) => {
+    const count = activities.filter(a => a.category === key).length;
+    return `<div class="cat-card ${key}" onclick="openCategory('${key}')">
+      <div class="cat-card-arrow">&#8250;</div>
+      <div class="cat-card-icon">${cat.icon}</div>
+      <div class="cat-card-name">${cat.name}</div>
+      <div class="cat-card-desc">${cat.desc}</div>
+      <div class="cat-card-count">${count} activities</div>
     </div>`;
   }).join("");
 }
 
-// ===== PLANNER & TIPS =====
-function renderPlanner() {
-  document.getElementById("plannerGrid").innerHTML = weeklyPlan.map(d =>
-    `<div class="planner-card"><div class="planner-day">${d.day}</div><div class="planner-activity">${d.activity}</div><div class="planner-meta">${d.type} &bull; ${d.cost}</div></div>`
-  ).join("");
+// ===== RENDER EXTRAS =====
+function renderExtras() {
+  document.getElementById("rainyList").innerHTML = rainyDayItems.map(r => `<span class="rainy-item">${r}</span>`).join("");
+  document.getElementById("plannerGrid").innerHTML = weeklyPlan.map(d => `<div class="planner-card"><div class="planner-day">${d.day}</div><div class="planner-activity">${d.activity}</div><div class="planner-meta">${d.type} &bull; ${d.cost}</div></div>`).join("");
+  document.getElementById("tipsGrid").innerHTML = proTips.map((t,i) => `<div class="tip-card"><span class="tip-num">${i+1}</span><span class="tip-text">${t}</span></div>`).join("");
 }
 
-function renderTips() {
-  document.getElementById("tipsGrid").innerHTML = proTips.map((t, i) =>
-    `<div class="tip-card"><span class="tip-num">${i + 1}</span><span class="tip-text">${t}</span></div>`
-  ).join("");
-}
-
-// ===== FILTER EVENT HANDLERS =====
-document.querySelectorAll("#categoryFilters .chip").forEach(c => {
-  c.addEventListener("click", () => {
-    c.classList.toggle("active");
-    syncFilters();
-    renderSubcategories();
-    renderCards();
-  });
-});
-
-document.querySelectorAll(".chip[data-cost], .chip[data-setting]").forEach(c => {
-  c.addEventListener("click", () => {
-    c.classList.toggle("active");
-    syncFilters();
-    renderCards();
-  });
-});
-
-function syncFilters() {
-  activeCategories.clear(); activeCosts.clear(); activeSettings.clear();
-  document.querySelectorAll("#categoryFilters .chip.active").forEach(c => activeCategories.add(c.dataset.category));
-  document.querySelectorAll(".chip[data-cost].active").forEach(c => activeCosts.add(c.dataset.cost));
-  document.querySelectorAll(".chip[data-setting].active").forEach(c => activeSettings.add(c.dataset.setting));
-}
-
-document.getElementById("clearAll").addEventListener("click", () => {
-  document.querySelectorAll(".chip.active").forEach(c => c.classList.remove("active"));
-  document.getElementById("searchInput").value = "";
-  searchQuery = "";
-  activeCategories.clear(); activeCosts.clear(); activeSettings.clear(); activeSubcategories.clear();
-  renderSubcategories();
-  renderCards();
-});
-
-document.getElementById("searchInput").addEventListener("input", e => {
-  searchQuery = e.target.value.trim();
-  renderCards();
-});
-
-// ===== SCROLL TO TOP =====
+// ===== SCROLL TOP =====
 const scrollBtn = document.getElementById("scrollTop");
 window.addEventListener("scroll", () => scrollBtn.classList.toggle("visible", window.scrollY > 400));
-scrollBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+scrollBtn.addEventListener("click", () => window.scrollTo({ top:0, behavior:"smooth" }));
 
 // ===== INIT =====
-renderCards(); renderPlanner(); renderTips(); updateCounts();
+renderCategories(); renderExtras(); updateCounts();
 
 // ===== SPARKLES =====
 (function() {
-  const canvas = document.getElementById("sparkleCanvas");
-  if (!canvas) return;
+  const canvas = document.getElementById("sparkleCanvas"); if (!canvas) return;
   const types = ["star","dot","ring","plus"];
-  for (let i = 0; i < 30; i++) {
-    const s = document.createElement("div");
-    s.className = "sparkle-static";
-    s.style.left = Math.random()*100 + "%";
-    s.style.top = Math.random()*100 + "%";
-    s.style.animationDuration = (2 + Math.random()*3) + "s";
-    s.style.animationDelay = (Math.random()*4) + "s";
-    const colors = ["var(--coral)","var(--amber)","var(--sage)","#C47A9B"];
-    const c = colors[Math.floor(Math.random()*colors.length)];
-    s.style.background = c;
-    s.style.boxShadow = `0 0 4px 1px ${c}`;
-    s.style.width = (2+Math.random()*2)+"px";
-    s.style.height = s.style.width;
+  for (let i=0; i<25; i++) {
+    const s=document.createElement("div"); s.className="sparkle-static";
+    s.style.left=Math.random()*100+"%"; s.style.top=Math.random()*100+"%";
+    s.style.animationDuration=(2+Math.random()*3)+"s"; s.style.animationDelay=(Math.random()*4)+"s";
+    const colors=["var(--coral)","var(--amber)","var(--sage)","#C47A9B"];
+    const c=colors[Math.floor(Math.random()*colors.length)];
+    s.style.background=c; s.style.boxShadow=`0 0 4px 1px ${c}`;
+    s.style.width=(2+Math.random()*2)+"px"; s.style.height=s.style.width;
     canvas.appendChild(s);
   }
-  function spawnSparkle() {
-    const s = document.createElement("div");
-    const t = types[Math.floor(Math.random()*types.length)];
-    s.className = "sparkle " + t;
-    s.style.left = Math.random()*100 + "%";
-    s.style.top = (40 + Math.random()*60) + "%";
-    s.style.animationDuration = (3 + Math.random()*4) + "s";
-    canvas.appendChild(s);
-    s.addEventListener("animationend", () => s.remove());
+  function spawn() {
+    const s=document.createElement("div"); const t=types[Math.floor(Math.random()*types.length)];
+    s.className="sparkle "+t; s.style.left=Math.random()*100+"%";
+    s.style.top=(40+Math.random()*60)+"%"; s.style.animationDuration=(3+Math.random()*4)+"s";
+    canvas.appendChild(s); s.addEventListener("animationend",()=>s.remove());
   }
-  for (let i = 0; i < 8; i++) setTimeout(spawnSparkle, i*300);
-  setInterval(spawnSparkle, 800);
+  for(let i=0;i<6;i++) setTimeout(spawn,i*300);
+  setInterval(spawn,900);
 })();
 </script>
 </body>
