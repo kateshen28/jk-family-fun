@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>J&K Family Fun Ideas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --deep: #1E1B2E;
+      --deep-mid: #2D1F3D;
+      --coral: #E8725A;
+      --coral-hover: #D4614B;
+      --coral-glow: rgba(232,114,90,0.25);
+      --amber: #F2A65A;
+      --sage: #7BA68A;
+      --sage-light: #E8F3EC;
+      --blush: #F4DDD6;
+      --cream: #FAF3EB;
+      --warm-white: #FFFBF7;
+      --card-bg: #FFFFFF;
+      --text: #2D2A26;
+      --text-secondary: #6B6560;
+      --text-muted: #A39E98;
+      --border: rgba(0,0,0,0.06);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+      --shadow: 0 4px 12px rgba(0,0,0,0.06), 0 12px 32px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.08), 0 20px 48px rgba(0,0,0,0.1);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --font-heading: 'Plus Jakarta Sans', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      padding: 72px 24px 64px;
+      text-align: center;
+      overflow: hidden;
+      background: var(--cream);
+    }
+
+    /* Sparkle canvas behind hero content */
+    .sparkle-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .sparkle {
+      position: absolute;
+      border-radius: 50%;
+      animation: sparkleFloat linear infinite;
+      opacity: 0;
+    }
+    .sparkle.star {
+      width: 3px; height: 3px;
+      background: var(--coral);
+      box-shadow: 0 0 6px 1px var(--coral-glow);
+    }
+    .sparkle.dot {
+      width: 4px; height: 4px;
+      background: var(--amber);
+      box-shadow: 0 0 8px 2px rgba(242,166,90,0.2);
+    }
+    .sparkle.ring {
+      width: 6px; height: 6px;
+      background: transparent;
+      border: 1.5px solid var(--sage);
+      box-shadow: 0 0 6px 1px rgba(123,166,138,0.15);
+    }
+    .sparkle.plus::before, .sparkle.plus::after {
+      content:'';position:absolute;background:var(--amber);border-radius:1px;
+    }
+    .sparkle.plus::before { width:8px;height:2px;top:3px;left:0; }
+    .sparkle.plus::after  { width:2px;height:8px;top:0;left:3px; }
+    .sparkle.plus { width:8px;height:8px;background:transparent;border:none;box-shadow:none; }
+
+    @keyframes sparkleFloat {
+      0%   { opacity: 0; transform: translateY(0) scale(0.5) rotate(0deg); }
+      15%  { opacity: 1; }
+      85%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-60px) scale(1.2) rotate(180deg); }
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(0.8); }
+      50%      { opacity: 1;   transform: scale(1.2); }
+    }
+    .sparkle-static {
+      position: absolute;
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--coral);
+      box-shadow: 0 0 4px 1px var(--coral-glow);
+      animation: twinkle ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232,114,90,0.08);
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--coral);
+      margin-bottom: 24px;
+      border: 1px solid rgba(232,114,90,0.15);
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--coral);
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 5.5vw, 3.5rem);
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+    .hero h1 .accent { color: var(--coral); }
+    .hero p {
+      color: var(--text-secondary);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      font-weight: 500;
+      max-width: 440px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+    }
+
+    .family-chips {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .family-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card-bg);
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.92rem;
+      border: 1px solid #E8E2DA;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
+    }
+    .family-chip:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    .family-chip .emoji { font-size: 1.2rem; }
+
+    /* ===== NAV TABS ===== */
+    .nav-area {
+      max-width: 1200px;
+      margin: -24px auto 0;
+      padding: 0 20px;
+      position: relative; z-index: 10;
+    }
+    .nav-tabs { display: flex; gap: 4px; }
+    .nav-tab {
+      padding: 12px 28px;
+      border-radius: 14px 14px 0 0;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+    }
+    .nav-tab.active {
+      background: var(--card-bg);
+      color: var(--text);
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
+    }
+    .nav-tab:not(.active) {
+      background: #F0EBE3;
+      color: var(--text-secondary);
+    }
+    .nav-tab:not(.active):hover { background: #E8E2DA; }
+    .tab-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 22px;
+      padding: 0 7px;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      margin-left: 8px;
+    }
+    .nav-tab.active .tab-count { background: var(--coral); color: #fff; }
+    .nav-tab:not(.active) .tab-count { background: #D4CFC9; color: #fff; }
+
+    /* ===== CONTROLS ===== */
+    .controls-panel {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .controls-inner {
+      background: var(--card-bg);
+      border-radius: 0 var(--radius) var(--radius) var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px 24px 18px;
+      border: 1px solid var(--border);
+    }
+
+    .search-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--cream);
+      border-radius: var(--radius-sm);
+      padding: 13px 18px;
+      margin-bottom: 18px;
+      border: 2px solid transparent;
+      transition: all 0.25s ease;
+    }
+    .search-wrap:focus-within {
+      border-color: var(--coral);
+      box-shadow: 0 0 0 4px var(--coral-glow);
+      background: var(--warm-white);
+    }
+    .search-wrap svg { width: 20px; height: 20px; color: var(--text-muted); flex-shrink: 0; }
+    .search-wrap input {
+      border: none; outline: none;
+      font-family: var(--font-body);
+      font-size: 0.95rem; font-weight: 500;
+      width: 100%; background: transparent;
+      color: var(--text);
+    }
+    .search-wrap input::placeholder { color: var(--text-muted); }
+    .result-count {
+      white-space: nowrap;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-family: var(--font-heading);
+    }
+
+    .filter-group { margin-bottom: 10px; }
+    .filter-group:last-child { margin-bottom: 0; }
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-family: var(--font-heading);
+      font-size: 0.7rem; font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-right: 4px;
+      white-space: nowrap;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 15px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid #E2DDD7;
+      background: var(--card-bg);
+      color: var(--text-secondary);
+      transition: all 0.2s ease;
+      user-select: none;
+      white-space: nowrap;
+      font-family: var(--font-body);
+    }
+    .chip:hover { border-color: var(--coral); color: var(--coral); }
+    .chip.active {
+      background: var(--coral);
+      border-color: var(--coral);
+      color: #fff;
+      box-shadow: 0 3px 12px var(--coral-glow);
+    }
+    .chip .chip-icon { font-size: 0.92rem; }
+
+    /* Unique active colors per category */
+    .chip[data-category="outdoor"].active { background: var(--sage); border-color: var(--sage); box-shadow: 0 3px 12px rgba(123,166,138,0.3); }
+    .chip[data-category="indoor"].active { background: #6B8EBF; border-color: #6B8EBF; box-shadow: 0 3px 12px rgba(107,142,191,0.3); }
+    .chip[data-category="arts_culture"].active { background: #9B7EC8; border-color: #9B7EC8; box-shadow: 0 3px 12px rgba(155,126,200,0.3); }
+    .chip[data-category="food_dining"].active { background: var(--coral); border-color: var(--coral); }
+    .chip[data-category="seasonal_events"].active { background: var(--amber); border-color: var(--amber); box-shadow: 0 3px 12px rgba(242,166,90,0.3); }
+    .chip[data-category="day_trips"].active { background: #5B7FC7; border-color: #5B7FC7; box-shadow: 0 3px 12px rgba(91,127,199,0.3); }
+    .chip[data-category="hidden_gems"].active { background: #C47A9B; border-color: #C47A9B; box-shadow: 0 3px 12px rgba(196,122,155,0.3); }
+
+    .chip[data-cost="free"].active { background: var(--sage); border-color: var(--sage); box-shadow: 0 3px 12px rgba(123,166,138,0.3); }
+    .chip[data-cost="$"].active { background: #6B8EBF; border-color: #6B8EBF; box-shadow: 0 3px 12px rgba(107,142,191,0.3); }
+    .chip[data-cost="$$"].active { background: var(--amber); border-color: var(--amber); box-shadow: 0 3px 12px rgba(242,166,90,0.3); }
+    .chip[data-cost="$$$"].active { background: var(--coral); border-color: var(--coral); }
+
+    .chip[data-setting="outdoor"].active { background: var(--sage); border-color: var(--sage); box-shadow: 0 3px 12px rgba(123,166,138,0.3); }
+    .chip[data-setting="indoor"].active { background: #6B8EBF; border-color: #6B8EBF; box-shadow: 0 3px 12px rgba(107,142,191,0.3); }
+    .chip[data-setting="both"].active { background: #9B7EC8; border-color: #9B7EC8; box-shadow: 0 3px 12px rgba(155,126,200,0.3); }
+
+    .clear-btn {
+      padding: 7px 16px;
+      border-radius: 50px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1.5px dashed #D4CFC9;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      transition: all 0.2s ease;
+    }
+    .clear-btn:hover { border-color: var(--coral); color: var(--coral); background: #FFF5F2; }
+
+    /* ===== CARDS ===== */
+    .grid-container {
+      max-width: 1200px;
+      margin: 28px auto;
+      padding: 0 20px 40px;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+    }
+    @media (max-width: 420px) { .cards-grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: transparent;
+    }
+
+    /* Category accent bar */
+    .card-accent { height: 4px; }
+    .cat-outdoor .card-accent { background: linear-gradient(90deg, var(--sage), #9BC4A8); }
+    .cat-indoor .card-accent { background: linear-gradient(90deg, #6B8EBF, #8FADD4); }
+    .cat-arts_culture .card-accent { background: linear-gradient(90deg, #9B7EC8, #B99AD8); }
+    .cat-food_dining .card-accent { background: linear-gradient(90deg, var(--coral), var(--amber)); }
+    .cat-seasonal_events .card-accent { background: linear-gradient(90deg, var(--amber), #F7C97E); }
+    .cat-day_trips .card-accent { background: linear-gradient(90deg, #5B7FC7, #7E9FD8); }
+    .cat-hidden_gems .card-accent { background: linear-gradient(90deg, #C47A9B, #D99AB4); }
+
+    /* Save heart */
+    .save-btn {
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: none;
+      background: var(--warm-white);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: all 0.25s ease;
+      z-index: 5;
+    }
+    .save-btn:hover { transform: scale(1.15); box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+    .save-btn svg { width: 18px; height: 18px; transition: all 0.25s ease; }
+    .save-btn .heart-outline { color: #C8C2BB; }
+    .save-btn .heart-filled { display: none; color: var(--coral); }
+    .save-btn.saved .heart-outline { display: none; }
+    .save-btn.saved .heart-filled { display: block; }
+    .save-btn.saved { background: var(--blush); }
+    @keyframes heartPop { 0%{transform:scale(1)} 30%{transform:scale(1.3)} 60%{transform:scale(0.95)} 100%{transform:scale(1)} }
+    .save-btn.pop { animation: heartPop 0.4s ease; }
+
+    .card-header {
+      padding: 18px 20px 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .card-icon-wrap {
+      width: 46px; height: 46px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+    .cat-outdoor .card-icon-wrap { background: var(--sage-light); }
+    .cat-indoor .card-icon-wrap { background: #E3ECF6; }
+    .cat-arts_culture .card-icon-wrap { background: #EDE6F6; }
+    .cat-food_dining .card-icon-wrap { background: var(--blush); }
+    .cat-seasonal_events .card-icon-wrap { background: #FEF0D6; }
+    .cat-day_trips .card-icon-wrap { background: #DEE6F6; }
+    .cat-hidden_gems .card-icon-wrap { background: #F4E0EA; }
+
+    .card-header-text { flex: 1; min-width: 0; padding-right: 28px; }
+    .card-name {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+    .card-tag {
+      display: inline-block;
+      font-family: var(--font-heading);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 50px;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .cat-outdoor .card-tag { background: var(--sage-light); color: #4A7D5A; }
+    .cat-indoor .card-tag { background: #E3ECF6; color: #4A6E94; }
+    .cat-arts_culture .card-tag { background: #EDE6F6; color: #6B4F8A; }
+    .cat-food_dining .card-tag { background: var(--blush); color: #B5533F; }
+    .cat-seasonal_events .card-tag { background: #FEF0D6; color: #A07030; }
+    .cat-day_trips .card-tag { background: #DEE6F6; color: #3F5A8A; }
+    .cat-hidden_gems .card-tag { background: #F4E0EA; color: #8A4A66; }
+
+    .card-body { padding: 6px 20px 16px; flex: 1; }
+    .card-desc {
+      font-size: 0.88rem; color: var(--text-secondary);
+      margin-bottom: 12px; line-height: 1.6;
+    }
+    .card-toddler {
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #4A7D5A;
+      background: var(--sage-light);
+      padding: 10px 14px;
+      border-radius: 10px;
+      line-height: 1.5;
+      border-left: 3px solid var(--sage);
+    }
+
+    .card-footer {
+      padding: 12px 20px;
+      border-top: 1px solid rgba(0,0,0,0.04);
+      display: flex; flex-wrap: wrap; gap: 6px;
+      background: #FDFCFA;
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
+    .card-pill {
+      display: inline-flex; align-items: center; gap: 3px;
+      font-family: var(--font-heading);
+      font-size: 0.72rem; font-weight: 700;
+      padding: 4px 10px; border-radius: 50px;
+    }
+    .pill-cost { background: #FEF0D6; color: #8A6020; }
+    .pill-cost.free { background: var(--sage-light); color: #4A7D5A; }
+    .pill-setting { background: var(--sage-light); color: #4A7D5A; }
+    .pill-setting.indoor { background: #E3ECF6; color: #4A6E94; }
+    .pill-setting.both { background: #EDE6F6; color: #6B4F8A; }
+    .pill-area { background: #F0ECE6; color: var(--text-secondary); }
+
+    .card-detail { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .card-detail-inner { padding: 0 20px 14px; }
+    .card-detail-inner p { font-size: 0.84rem; color: var(--text-secondary); margin-bottom: 5px; line-height: 1.55; }
+    .card-detail-inner p strong { color: var(--text); }
+    .card.expanded .card-detail { max-height: 400px; }
+
+    .card-expand-btn {
+      display: flex; align-items: center; justify-content: center; gap: 4px;
+      width: 100%; padding: 10px; border: none;
+      background: #F8F6F2;
+      color: var(--text-muted);
+      font-family: var(--font-heading);
+      font-size: 0.78rem; font-weight: 700;
+      cursor: pointer; transition: all 0.2s ease;
+      border-top: 1px solid rgba(0,0,0,0.04);
+    }
+    .card-expand-btn:hover { background: #F0ECE6; color: var(--text-secondary); }
+    .card-expand-btn svg { width: 14px; height: 14px; transition: transform 0.25s ease; }
+    .card.expanded .card-expand-btn svg { transform: rotate(180deg); }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state { text-align: center; padding: 80px 20px; grid-column: 1 / -1; }
+    .empty-state .emoji { font-size: 52px; margin-bottom: 16px; }
+    .empty-state h3 { font-family: var(--font-heading); font-size: 1.2rem; margin-bottom: 8px; }
+    .empty-state p { color: var(--text-secondary); font-size: 0.95rem; }
+
+    /* ===== RAINY DAY ===== */
+    .rainy-banner { max-width: 1200px; margin: 0 auto 32px; padding: 0 20px; }
+    .rainy-inner {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 28px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    .rainy-inner h3 {
+      font-family: var(--font-heading);
+      font-size: 1.15rem; font-weight: 800;
+      margin-bottom: 16px; color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .rainy-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .rainy-item {
+      background: var(--cream); padding: 8px 16px;
+      border-radius: 50px; font-size: 0.85rem;
+      font-weight: 600; color: var(--text);
+      border: 1px solid #E8E2DA;
+      transition: all 0.2s ease;
+    }
+    .rainy-item:hover { transform: translateY(-2px); border-color: var(--coral); color: var(--coral); }
+
+    /* ===== SECTIONS ===== */
+    .section-block { max-width: 1200px; margin: 0 auto 36px; padding: 0 20px; }
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 1.25rem; font-weight: 800;
+      margin-bottom: 18px; color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .planner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 14px;
+    }
+    .planner-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--coral);
+      transition: all 0.2s ease;
+    }
+    .planner-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .planner-card:nth-child(2) { border-left-color: var(--amber); }
+    .planner-card:nth-child(3) { border-left-color: #9B7EC8; }
+    .planner-card:nth-child(4) { border-left-color: #6B8EBF; }
+    .planner-card:nth-child(5) { border-left-color: var(--sage); }
+    .planner-card:nth-child(6) { border-left-color: #C47A9B; }
+    .planner-card:nth-child(7) { border-left-color: #5B7FC7; }
+    .planner-day {
+      font-family: var(--font-heading);
+      font-weight: 800; font-size: 0.72rem;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--text-muted); margin-bottom: 6px;
+    }
+    .planner-activity { font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.45; }
+    .planner-meta { font-size: 0.78rem; color: var(--text-muted); margin-top: 8px; font-weight: 600; }
+
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 14px;
+    }
+    @media (max-width: 420px) { .tips-grid { grid-template-columns: 1fr; } }
+    .tip-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-sm);
+      padding: 16px; box-shadow: var(--shadow-sm);
+      display: flex; gap: 14px; align-items: flex-start;
+      border: 1px solid var(--border);
+      transition: transform 0.2s ease;
+    }
+    .tip-card:hover { transform: translateY(-2px); }
+    .tip-num {
+      width: 32px; height: 32px;
+      border-radius: 10px;
+      background: var(--coral);
+      color: #fff;
+      font-family: var(--font-heading);
+      font-weight: 800; font-size: 0.85rem;
+      display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+    .tip-text { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.55; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 36px 24px;
+      background: var(--warm-white);
+      border-top: 1px solid #E8E2DA;
+      color: var(--text-muted);
+      font-size: 0.88rem; font-weight: 500;
+    }
+    footer .heart { color: var(--coral); }
+    footer strong { color: var(--text-secondary); }
+
+    /* ===== SCROLL TOP ===== */
+    .scroll-top {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--coral); color: #fff;
+      border: none;
+      box-shadow: 0 4px 16px var(--coral-glow);
+      cursor: pointer;
+      display: none; align-items: center;
+      justify-content: center; font-size: 1.2rem;
+      z-index: 100;
+      transition: all 0.2s ease;
+    }
+    .scroll-top:hover { transform: scale(1.1); background: var(--coral-hover); }
+    .scroll-top.visible { display: flex; }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed; bottom: 90px; left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: var(--text);
+      color: #fff; padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-heading);
+      font-size: 0.88rem; font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      z-index: 200; opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 640px) {
+      .hero { padding: 48px 16px 52px; }
+      .controls-inner { padding: 16px; }
+      .filter-label { display: none; }
+      .chip { padding: 6px 12px; font-size: 0.78rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="sparkle-canvas" id="sparkleCanvas"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="dot"></span> Jersey City, NJ</div>
+    <h1>J&K <span class="accent">Family Fun</span> Ideas</h1>
+    <p>Weekend adventures and hidden gems for our little family to explore together</p>
+    <div class="family-chips">
+      <span class="family-chip"><span class="emoji">&#128104;</span> Jay</span>
+      <span class="family-chip"><span class="emoji">&#128105;</span> Kate</span>
+      <span class="family-chip"><span class="emoji">&#128118;</span> Estella</span>
+    </div>
+  </div>
+</header>
+
+<div class="nav-area">
+  <div class="nav-tabs">
+    <button class="nav-tab active" id="tabAll" onclick="switchTab('all')">All Ideas <span class="tab-count" id="allCount">49</span></button>
+    <button class="nav-tab" id="tabSaved" onclick="switchTab('saved')">Saved <span class="tab-count" id="savedCount">0</span></button>
+  </div>
+</div>
+
+<div class="controls-panel">
+  <div class="controls-inner">
+    <div class="search-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+      <input type="text" id="searchInput" placeholder="Search parks, restaurants, classes...">
+      <span class="result-count" id="resultCount"></span>
+    </div>
+    <div class="filter-group">
+      <div class="filter-row" id="categoryFilters">
+        <span class="filter-label">Category</span>
+        <button class="chip" data-category="outdoor"><span class="chip-icon">&#9728;&#65039;</span> Outdoor</button>
+        <button class="chip" data-category="indoor"><span class="chip-icon">&#127968;</span> Indoor</button>
+        <button class="chip" data-category="arts_culture"><span class="chip-icon">&#127912;</span> Arts</button>
+        <button class="chip" data-category="food_dining"><span class="chip-icon">&#127869;</span> Food</button>
+        <button class="chip" data-category="seasonal_events"><span class="chip-icon">&#127875;</span> Seasonal</button>
+        <button class="chip" data-category="day_trips"><span class="chip-icon">&#128663;</span> Day Trips</button>
+        <button class="chip" data-category="hidden_gems"><span class="chip-icon">&#128142;</span> Gems</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <div class="filter-row">
+        <span class="filter-label">Budget</span>
+        <button class="chip" data-cost="free">Free</button>
+        <button class="chip" data-cost="$">$</button>
+        <button class="chip" data-cost="$$">$$</button>
+        <button class="chip" data-cost="$$$">$$$</button>
+        <span style="width: 8px"></span>
+        <span class="filter-label">Setting</span>
+        <button class="chip" data-setting="outdoor">Outdoor</button>
+        <button class="chip" data-setting="indoor">Indoor</button>
+        <button class="chip" data-setting="both">Both</button>
+        <button class="clear-btn" id="clearAll">Clear all</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-container"><div class="cards-grid" id="cardsGrid"></div></div>
+
+<div class="rainy-banner" id="rainySection">
+  <div class="rainy-inner">
+    <h3>Rainy Day Emergency List</h3>
+    <div class="rainy-list">
+      <span class="rainy-item">Liberty Science Center</span>
+      <span class="rainy-item">Krayon Park</span>
+      <span class="rainy-item">Just Play!</span>
+      <span class="rainy-item">Funzy Playground</span>
+      <span class="rainy-item">JC Library Story Time</span>
+      <span class="rainy-item">Gymboree</span>
+      <span class="rainy-item">The Hive</span>
+      <span class="rainy-item">Imagine That!!!</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-block" id="plannerSection">
+  <h2 class="section-title">Weekly Fun Planner</h2>
+  <div class="planner-grid" id="plannerGrid"></div>
+</div>
+
+<div class="section-block" id="tipsSection">
+  <h2 class="section-title">Pro Tips for Jay &amp; Kate</h2>
+  <div class="tips-grid" id="tipsGrid"></div>
+</div>
+
+<footer>Made with <span class="heart">&#10084;</span> for <strong>Jay, Kate &amp; Estella</strong> &mdash; Jersey City, NJ</footer>
+
+<button class="scroll-top" id="scrollTop">&#8593;</button>
+<div class="toast" id="toast"></div>
+
+<script>
+const activities = [
+  {id:1,name:"Liberty State Park",category:"outdoor",description:"A sprawling 1,212-acre waterfront park with a 2-mile promenade, two playgrounds, picnic areas, and the Nature Center. Stunning Statue of Liberty and Manhattan views.",toddler:"Playground has low slides, bouncy bridges, a pretend sailing ship, and water features in summer. Perfectly stroller-friendly.",cost:"Free",costTier:"free",setting:"Outdoor",address:"200 Morris Pesin Dr, Jersey City, NJ 07305",area:"Southern JC",tag:"Must-Visit Park",hours:"Dawn to dusk daily",tips:"Pack a picnic. Visit the Nature Center for free storytime. Liberty Express mini train runs weekends & holidays."},
+  {id:2,name:"Hamilton Park",category:"outdoor",description:"Crown jewel of downtown JC with three playgrounds, a water park area, and gorgeous green spaces surrounded by restaurants.",toddler:"Dedicated tots playground plus seasonal water park. Flat, fenced layout perfect for little ones learning to walk.",cost:"Free",costTier:"free",setting:"Outdoor",address:"1 West Hamilton Pl, Jersey City, NJ 07302",area:"Downtown JC",tag:"Best Downtown Park",hours:"Dawn to dusk",tips:"Hit the Saturday Farmers Market. Great restaurants nearby for a post-park meal."},
+  {id:3,name:"Newport Green Park",category:"outdoor",description:"Modern park with separate playground areas for preschool and elementary kids, a splash pad, and a carousel.",toddler:"Preschool-specific play sets perfectly sized for toddlers. Carousel is a huge hit, splash pad ideal for summer.",cost:"Free (carousel ~$3)",costTier:"free",setting:"Outdoor",address:"14th St, Jersey City, NJ 07310",area:"Newport",tag:"Carousel & Splash Pad",hours:"Dawn to dusk; carousel varies",tips:"Bring swimsuits for the splash pad in summer."},
+  {id:4,name:"Pershing Field Memorial Park",category:"outdoor",description:"Historic park with an excellent playground, sports facilities, and a seasonal pool. Multi-level climbing structures.",toddler:"Low sloping slides, bouncy bridges, and a make-believe sailing ship with steering wheels and lookout post.",cost:"Free",costTier:"free",setting:"Outdoor",address:"201 Central Ave, Jersey City, NJ 07307",area:"JC Heights",tag:"Imaginative Play",hours:"Dawn to dusk",tips:"Great for pretend play. Less crowded than downtown parks."},
+  {id:5,name:"Berry Lane Sprayground",category:"outdoor",description:"One of JC's three free spraygrounds with splash areas and playground equipment for hot summer days.",toddler:"Low-pressure, toddler-safe water play with no deep water. Runs Memorial Day through Labor Day.",cost:"Free",costTier:"free",setting:"Outdoor",address:"199 Woodward St, Jersey City, NJ 07304",area:"Bergen-Lafayette",tag:"Summer Splash Fun",hours:"Memorial Day - Labor Day",tips:"Bring towel, swimsuit, and sunscreen. Arrive early on hot days."},
+  {id:6,name:"Hoboken Waterfront & Pier A",category:"outdoor",description:"Beautiful waterfront path along the Hudson with Manhattan skyline views, parks, playgrounds, and walking paths.",toddler:"Wide stroller-friendly walkway. Multiple playgrounds along the route. Pier A has grassy areas and room to run.",cost:"Free",costTier:"free",setting:"Outdoor",address:"Hoboken Waterfront, NJ 07030",area:"Hoboken",tag:"Scenic Stroll",hours:"Open 24 hours",tips:"Walk south from Hoboken Terminal. Great for sunset walks."},
+  {id:7,name:"Van Vorst Park",category:"outdoor",description:"Charming historic park in downtown JC with gardens, a playground, and a Saturday farmers market amid brownstones.",toddler:"Compact and well-maintained, perfect for toddlers needing a contained play area.",cost:"Free",costTier:"free",setting:"Outdoor",address:"Jersey Ave & Montgomery St, JC 07302",area:"Downtown JC",tag:"Charming Park & Market",hours:"Dawn to dusk; Market: Saturdays",tips:"Visit Saturday mornings for the farmers market."},
+  {id:8,name:"Lincoln Park",category:"outdoor",description:"Historic park founded in 1905 with a dedicated preschooler playground, sports facilities, and expansive green spaces.",toddler:"Clean, safe playground with climbing areas, slides, and interactive parts to turn, push, and pull.",cost:"Free",costTier:"free",setting:"Outdoor",address:"Lincoln Park, Jersey City, NJ 07304",area:"West Side",tag:"Historic Green Space",hours:"Dawn to dusk",tips:"Lots of open green space. Connects to a nice walking path."},
+  {id:9,name:"Liberty Science Center",category:"indoor",description:"World-class interactive science museum with 12 exhibitions, the largest planetarium in the Western Hemisphere, and 110+ animal species.",toddler:"Wobbly World designed for ages 0-5 with soft sensory play. Toddlers love the aquariums, Dino Dig, and Great Train Set.",cost:"$$$",costTier:"$$$",setting:"Indoor",address:"222 Jersey City Blvd, JC 07305",area:"Liberty State Park",tag:"Must-Visit Museum",hours:"Wed-Sun, 10am-5pm",tips:"Buy tickets online. Head to Wobbly World first. Free community nights available."},
+  {id:10,name:"Just Play! Indoor Play & Cafe",category:"indoor",description:"Indoor playground for babies to age 7 with a cafe where parents grab coffee while kids explore.",toddler:"Slides, ball pit, and equipment for the smallest kids. Toddler section separated from older kids.",cost:"$$",costTier:"$$",setting:"Indoor",address:"125 River Drive South, JC 07310",area:"Downtown JC",tag:"Play & Coffee Combo",hours:"Check website",tips:"Great rainy day option. Socks required."},
+  {id:11,name:"Krayon Park",category:"indoor",description:"Vibrant indoor play space with climbing structures, slides, swings, ball pits, and trampolines.",toddler:"Separate soft-play areas for the smallest children. Also hosts music classes.",cost:"$$",costTier:"$$",setting:"Indoor",address:"206 Van Vorst St, 2nd Floor, JC 07302",area:"Downtown JC",tag:"Toddler Playground Paradise",hours:"Check website",tips:"Book ahead for weekends. Hosts A Sound Start music classes."},
+  {id:12,name:"Funzy Indoor Playground",category:"indoor",description:"Play-to-learn family club with explorative areas, educational workshops, and an all-day cafe.",toddler:"Learning through play with age-appropriate zones. Workshops introduce toddlers to creative activities.",cost:"$$",costTier:"$$",setting:"Indoor",address:"Jersey City, NJ",area:"Jersey City",tag:"Learn Through Play",hours:"Check website",tips:"Cafe for parents to relax. Check schedule for toddler workshops."},
+  {id:13,name:"Sunshine Village",category:"indoor",description:"Play space exclusively for ages 0-5 with open play sessions and structured classes.",toddler:"Everything perfectly sized and safe for under-5s. No big kids running around.",cost:"$$",costTier:"$$",setting:"Indoor",address:"JC/Hoboken area",area:"JC/Hoboken",tag:"Ages 0-5 Only",hours:"Check website",tips:"Monthly memberships are great value if you go frequently."},
+  {id:14,name:"JC Free Public Library",category:"indoor",description:"Free story time, sing-alongs, music, arts and crafts, and author visits across multiple branches.",toddler:"Free story time for ages 0-5 with stories, songs, fingerplays, dancing, and take-home crafts.",cost:"Free",costTier:"free",setting:"Indoor",address:"Main: 472 Jersey Ave, JC 07302",area:"Multiple locations",tag:"Free Storytime",hours:"Storytime: Wed & Thu",tips:"Also check outdoor story hour at Coles Street Market, Tuesdays 4-5 PM."},
+  {id:15,name:"Spark Place",category:"indoor",description:"Play space designed by local parents for kids 6 and under, with a special section for crawlers and early walkers.",toddler:"Dedicated crawler/early walker area so Estella can explore safely at her own pace.",cost:"$$",costTier:"$$",setting:"Indoor",address:"Hoboken, NJ",area:"Hoboken",tag:"Parent-Designed Play",hours:"Check website",tips:"Popular with the Hoboken/JC parent community."},
+  {id:16,name:"A Sound Start Music",category:"arts_culture",description:"Beloved music program for families including the bilingual Canta Conmigo program.",toddler:"Whole family participates. Music, movement, and singing are perfect for toddler development.",cost:"$$",costTier:"$$",setting:"Indoor",address:"Krayon Park, 206 Van Vorst St, JC",area:"Downtown JC",tag:"Music & Movement",hours:"Check asoundstart.com",tips:"Registration fills fast. Bilingual Canta Conmigo is unique."},
+  {id:17,name:"Gymboree Play & Music",category:"arts_culture",description:"Hands-on play classes for babies, toddlers, and preschoolers in art, music, and school skills.",toddler:"Age-grouped classes so Estella is with peers. Combines music, art, and physical play.",cost:"$$",costTier:"$$",setting:"Indoor",address:"Jersey City, NJ",area:"Jersey City",tag:"Play & Learn Classes",hours:"Check gymboreeclasses.com",tips:"Try a free intro class first. Great for socialization."},
+  {id:18,name:"Rockness Music",category:"arts_culture",description:"Unique music program combining classes with Spanish language, culture, and Latin American instruments.",toddler:"High-energy music, rhythm instruments, and movement with Spanish language exposure.",cost:"$$",costTier:"$$",setting:"Indoor",address:"JC/Hoboken area",area:"JC/Hoboken",tag:"Bilingual Music",hours:"Check for schedule",tips:"Great complement to A Sound Start if Estella loves music."},
+  {id:19,name:"Romparoo",category:"arts_culture",description:"Play-and-learn space with energetic staff leading structured toddler activities and story time.",toddler:"Perfect size with energetic staff. Story time at end of class helps wind down.",cost:"$$",costTier:"$$",setting:"Indoor",address:"JC/Hoboken area",area:"JC/Hoboken",tag:"Structured Toddler Play",hours:"Check website",tips:"Highly rated by local parents."},
+  {id:20,name:"My Gym Children's Fitness",category:"arts_culture",description:"Structured fitness with age-appropriate gymnastics, movement, music, and social interaction.",toddler:"Motor skill development through fun. Estella can climb, tumble, and swing safely.",cost:"$$",costTier:"$$",setting:"Indoor",address:"JC/Hoboken area",area:"JC/Hoboken",tag:"Toddler Fitness & Fun",hours:"Check mygym.com",tips:"Free trial classes usually available."},
+  {id:21,name:"Kinderdance",category:"arts_culture",description:"Movement-based classes blending dance, yoga, and gymnastics in 45-minute sessions.",toddler:"Develops coordination, balance, and body awareness in a fun way.",cost:"$$",costTier:"$$",setting:"Indoor",address:"JC/Hoboken area",area:"JC/Hoboken",tag:"Dance & Movement",hours:"45-min classes",tips:"Dance and yoga are great for toddler development."},
+  {id:22,name:"Two Boots",category:"food_dining",description:"Colorful family-friendly restaurant serving Cajun-Italian pizza with comfy banquettes and occasional live music.",toddler:"Fun atmosphere, comfy booth seating for wiggly eaters. Pizza is always a toddler win.",cost:"$$",costTier:"$$",setting:"Indoor",address:"133 Newark Ave, JC 07302",area:"Downtown JC",tag:"Fun & Colorful Pizza",hours:"Daily, lunch & dinner",tips:"Sidewalk seating in nice weather."},
+  {id:23,name:"City Diner",category:"food_dining",description:"Beloved JC institution with 25+ pancake variations including M&Ms, Oreos, Nutella, and bacon.",toddler:"Cushioned booths are toddler-friendly. Fluffy pancakes and waffles are toddler-approved staples.",cost:"$$",costTier:"$$",setting:"Indoor",address:"394 Jersey Ave, JC 07302",area:"Downtown JC",tag:"Best Pancakes in Town",hours:"Daily; breakfast all day",tips:"Come for brunch. Can get crowded on weekends."},
+  {id:24,name:"Skinner's Loft",category:"food_dining",description:"Family-friendly restaurant offering markers, paper, and stickers alongside a dedicated kids menu.",toddler:"Markers, paper, and stickers keep toddlers occupied while waiting for food.",cost:"$$",costTier:"$$",setting:"Indoor",address:"146 Newark Ave, JC 07302",area:"Downtown JC",tag:"Dine & Color",hours:"Lunch & dinner; brunch weekends",tips:"Ask for the kids activity kit when you sit down."},
+  {id:25,name:"Razza",category:"food_dining",description:"Named best pizzeria in North America. Wood-fired pizza with high-quality ingredients.",toddler:"Simple Margherita is perfect for toddlers. Watching the wood-fired oven fascinates kids.",cost:"$$$",costTier:"$$$",setting:"Indoor",address:"275 Grove St, JC 07302",area:"Downtown JC",tag:"Best Pizza in America",hours:"Dinner nightly",tips:"Reservations recommended. Go early (5-5:30 PM)."},
+  {id:26,name:"Torico Ice Cream",category:"food_dining",description:"JC ice cream institution since 1968, voted best in NJ. Over 65 flavors, natural ingredients.",toddler:"65+ flavors for even the pickiest toddler. A generations-old family tradition.",cost:"$",costTier:"$",setting:"Indoor",address:"736 Bergen Ave, JC 07306",area:"Journal Square",tag:"Legendary Ice Cream",hours:"Daily; hours vary",tips:"Ask for a sample first. Line gets long on hot days."},
+  {id:27,name:"Milk Sugar Love",category:"food_dining",description:"Artisanal ice cream and baked goods from scratch with all-natural, local ingredients.",toddler:"Fruity Pebbles and fun flavors for toddlers. All-natural for parents' peace of mind.",cost:"$$",costTier:"$$",setting:"Indoor",address:"19 Essex St, JC 07302",area:"Downtown JC",tag:"Artisanal Ice Cream",hours:"Check website",tips:"Try Fruity Pebbles for Estella, Earl Gray Fudge for adults."},
+  {id:28,name:"Grove St Farmers Market",category:"food_dining",description:"Vibrant market Mondays and Thursdays, late April through December. Fresh produce and artisanal foods.",toddler:"Wonderful sensory experience - colorful fruits, fragrant flowers, friendly vendors.",cost:"$",costTier:"$",setting:"Outdoor",address:"Grove Street PATH Plaza, JC 07302",area:"Downtown JC",tag:"Fresh Market Fun",hours:"Mon & Thu, late Apr-Dec",tips:"Arrive early for best selection."},
+  {id:29,name:"Newport Skates",category:"seasonal_events",description:"JC's only outdoor ice skating rink with a festive waterfront setting during winter.",toddler:"Many rinks offer skate aids for little ones. The festive atmosphere alone is fun.",cost:"$$",costTier:"$$",setting:"Outdoor",address:"Newport, Jersey City",area:"Newport",tag:"Winter Wonderland",hours:"Nov-March",tips:"Dress warmly. Check for toddler skate aids."},
+  {id:30,name:"All About Downtown Street Fair",category:"seasonal_events",description:"Annual mega street fair with 200+ businesses, food, live music, rides, and kid activities.",toddler:"Kid-friendly rides section designed for young children.",cost:"$",costTier:"$",setting:"Outdoor",address:"Downtown JC",area:"Downtown JC",tag:"Annual Festival",hours:"One Saturday in September",tips:"Go early before crowds."},
+  {id:31,name:"Cherry Blossom Festival",category:"seasonal_events",description:"50th anniversary (2026) at Branch Brook Park with thousands of cherry blossom trees and Bloomfest.",toddler:"Pink blossoms are magical - like walking through a fairy tale. Flat stroller-friendly paths.",cost:"Free",costTier:"free",setting:"Outdoor",address:"Branch Brook Park, Newark, NJ",area:"Newark (15 min)",tag:"Spring Spectacle",hours:"April 11-19, 2026",tips:"2026 is the 50th anniversary! Light Rail from JC stops nearby."},
+  {id:32,name:"Free Sprayground Season",category:"seasonal_events",description:"Memorial Day through Labor Day, three free spraygrounds at Berry Lane, Newport Green, and Hamilton Park.",toddler:"Free water play is the ultimate toddler summer activity.",cost:"Free",costTier:"free",setting:"Outdoor",address:"Multiple JC locations",area:"Multiple",tag:"Summer Splash",hours:"Memorial Day - Labor Day",tips:"Bring swimsuit, towel, sunscreen."},
+  {id:33,name:"Holiday Square Market",category:"seasonal_events",description:"Holiday market Wed-Sun in December with vendors, treats, and festive activities.",toddler:"Lights, decorations, and holiday atmosphere delight toddlers.",cost:"$",costTier:"$",setting:"Outdoor",address:"Downtown JC",area:"Downtown JC",tag:"Holiday Magic",hours:"Wed-Sun in December",tips:"Go on a weekday evening for fewer crowds."},
+  {id:34,name:"Daffodil Day Festival",category:"seasonal_events",description:"Annual spring festival with 50,000+ daffodils, games, crafts, a story trail, and music.",toddler:"Story trail is perfect for toddlers. 50,000 yellow flowers create a wonderland.",cost:"$",costTier:"$",setting:"Outdoor",address:"Reeves-Reed Arboretum, Summit, NJ",area:"Summit (~30 min)",tag:"Spring Flowers & Fun",hours:"Annual spring event",tips:"Story trail is a must. Wear boots."},
+  {id:35,name:"Turtle Back Zoo",category:"day_trips",description:"Top-rated zoo with giraffes, sea lions, penguins, butterflies, playground, and a train ride.",toddler:"Perfectly sized - exciting but not exhausting. Train ride and carousel are extras.",cost:"$$",costTier:"$$",setting:"Outdoor",address:"560 Northfield Ave, West Orange, NJ",area:"West Orange (~25 min)",tag:"Best Local Zoo",hours:"Daily 10am-4:30pm",tips:"Zoo train and carousel are must-dos. Weekday mornings least crowded."},
+  {id:36,name:"Bergen County Zoo",category:"day_trips",description:"Free-admission zoo at Van Saun Park with bison, lions, birds, farm animals, train, and pony rides.",toddler:"Free admission for guilt-free repeat visits. Farm animals and pony rides are toddler favorites.",cost:"Free",costTier:"free",setting:"Outdoor",address:"216 Forest Ave, Paramus, NJ",area:"Paramus (~30 min)",tag:"Free Zoo!",hours:"Daily 10am-4:30pm",tips:"Free admission! Pack a lunch for the picnic area."},
+  {id:37,name:"Imagine That!!! Museum",category:"day_trips",description:"16,000 sq ft interactive museum for preschoolers with castle, pirate ship, and pretend grocery store.",toddler:"Everything designed for preschool age. Pretend grocery store is usually the biggest hit.",cost:"$$",costTier:"$$",setting:"Indoor",address:"4 Vreeland Rd, Florham Park, NJ",area:"Florham Park (~30 min)",tag:"Imagination Station",hours:"Check website",tips:"Allow 2-3 hours. Great rainy day trip."},
+  {id:38,name:"Demarest Farms",category:"day_trips",description:"Family farm with hayrides, petting zoo, farm market, and seasonal fruit picking.",toddler:"Petting zoo is a toddler dream. Picking fruit teaches where food comes from.",cost:"$$",costTier:"$$",setting:"Outdoor",address:"244 Wierimus Rd, Hillsdale, NJ",area:"Hillsdale (~35 min)",tag:"Farm Fun",hours:"Seasonal",tips:"Strawberry season (late May/June) is magical. Amazing cider donuts."},
+  {id:39,name:"Statue of Liberty Ferry",category:"day_trips",description:"Ferry from Liberty State Park to the Statue of Liberty and Ellis Island.",toddler:"Ferry ride is thrilling. Free for children under 3!",cost:"$$",costTier:"$$",setting:"Outdoor",address:"Liberty State Park, JC",area:"Liberty State Park",tag:"Iconic Experience",hours:"Check statuecruises.com",tips:"Estella rides free under 3! Take the first ferry. Bring snacks."},
+  {id:40,name:"Adventure Aquarium",category:"day_trips",description:"15,000+ aquatic animals including hippos, penguins, sharks. Features KidZone playground.",toddler:"KidZone for young children. Hippos, penguins, and colorful fish captivate toddlers.",cost:"$$$",costTier:"$$$",setting:"Indoor",address:"1 Riverside Dr, Camden, NJ",area:"Camden (~90 min)",tag:"Underwater Adventure",hours:"Daily 10am-5pm",tips:"Longer drive but worth it. Hippos are the star."},
+  {id:41,name:"Newark Museum of Art",category:"day_trips",description:"NJ's largest museum with planetarium, interactive galleries, and arts programs.",toddler:"Planetarium captivates toddlers. Interactive galleries let kids touch and explore.",cost:"$",costTier:"$",setting:"Indoor",address:"49 Washington St, Newark, NJ",area:"Newark (~15 min)",tag:"NJ's Biggest Museum",hours:"Wed-Sun, 12-5pm",tips:"Free first Thursdays."},
+  {id:42,name:"Morris Museum",category:"day_trips",description:"Charming museum with musical dolls, Mega Model Trains, and Dinosaur Den.",toddler:"Musical dolls are mesmerizing. Model trains captivate train lovers.",cost:"$$",costTier:"$$",setting:"Indoor",address:"6 Normandy Heights Rd, Morristown, NJ",area:"Morristown (~35 min)",tag:"Trains & Dinosaurs",hours:"Wed-Sun",tips:"Model trains are worth the trip."},
+  {id:43,name:"The Hive",category:"hidden_gems",description:"Cheerful Hoboken coffee shop with a dedicated play space filled with toys and books.",toddler:"Play space keeps kids busy while parents sip real coffee. Everyone wins.",cost:"$",costTier:"$",setting:"Indoor",address:"Hoboken, NJ",area:"Hoboken",tag:"Coffee + Play = Win",hours:"Check website",tips:"The hidden gem every parent needs."},
+  {id:44,name:"The Little Play Co.",category:"hidden_gems",description:"Voted Best Kid's Activity by Hoboken Girl. Drop-in play for ages 9 months to 5 years.",toddler:"Designed for exactly Estella's age range. Two-hour sessions are perfect.",cost:"$$",costTier:"$$",setting:"Indoor",address:"Hoboken, NJ",area:"Hoboken",tag:"Local Favorite",hours:"Drop-in sessions",tips:"Voted best by local parents. Weekday mornings are quieter."},
+  {id:45,name:"Urban Jungle Play",category:"hidden_gems",description:"Indoor playground with slides, swings, and a small-children area with a live fish tank.",toddler:"Dedicated small-children area. Fish tank fascinates little visitors for ages.",cost:"$$",costTier:"$$",setting:"Indoor",address:"Hoboken, NJ",area:"Hoboken",tag:"Indoor Jungle Adventure",hours:"Check website",tips:"Fish tank is a sleeper hit. Often less crowded."},
+  {id:46,name:"Coles Street Story Hour",category:"hidden_gems",description:"Free weekly outdoor story hour by JC Library, Tuesdays 4-5 PM.",toddler:"Outdoor story time, market browsing, all free. Perfect for development.",cost:"Free",costTier:"free",setting:"Outdoor",address:"Coles Street Market, JC",area:"Downtown JC",tag:"Free Story Time Outside",hours:"Tuesdays 4-5 PM",tips:"A hidden gem most non-locals don't know about."},
+  {id:47,name:"Liberty State Park Nature Center",category:"hidden_gems",description:"Free nature center with ecology exhibits, seasonal story time with crafts.",toddler:"Free story time with a nature-themed story and take-home craft.",cost:"Free",costTier:"free",setting:"Both",address:"Liberty State Park, JC 07305",area:"Liberty State Park",tag:"Nature Discovery",hours:"Check NJ State Parks",tips:"Most people skip this for Liberty Science Center - their loss!"},
+  {id:48,name:"Pier 13 Family Fundays",category:"hidden_gems",description:"Tuesdays 4-8 PM (spring-fall) with ping pong, bounce house, food, and waterfront views.",toddler:"Bounce house is a toddler magnet. Beautiful waterfront setting.",cost:"$",costTier:"$",setting:"Outdoor",address:"Pier 13, JC",area:"JC Waterfront",tag:"Waterfront Family Night",hours:"Tue 4-8 PM (spring-fall)",tips:"Make it a special Tuesday tradition."},
+  {id:49,name:"Hoboken Terminal",category:"hidden_gems",description:"Historic Beaux-Arts train terminal. Watch NJ Transit and PATH trains come and go.",toddler:"Free way to watch real trains up close! Grand architecture impresses even toddlers.",cost:"Free",costTier:"free",setting:"Indoor",address:"1 Hudson Pl, Hoboken, NJ",area:"Hoboken",tag:"Train Lover's Dream",hours:"Transit hours; avoid rush hour",tips:"Visit mid-morning. Combine with waterfront walk."},
+];
+
+const catIcons={outdoor:"\u2600\uFE0F",indoor:"\uD83C\uDFE0",arts_culture:"\uD83C\uDFA8",food_dining:"\uD83C\uDF7D\uFE0F",seasonal_events:"\uD83C\uDF83",day_trips:"\uD83D\uDE97",hidden_gems:"\uD83D\uDC8E"};
+const weeklyPlan=[
+  {day:"Monday",activity:"Grove Street Farmers Market + playground at Hamilton Park",type:"Outdoor",cost:"Free"},
+  {day:"Tuesday",activity:"Coles Street Story Hour (4-5 PM) or Pier 13 Funday",type:"Outdoor",cost:"Free"},
+  {day:"Wednesday",activity:"Story Time at JC Library + indoor play at Krayon Park",type:"Indoor",cost:"Free / $$"},
+  {day:"Thursday",activity:"Pavonia Branch Story Time + Grove Street Farmers Market",type:"Indoor/Outdoor",cost:"Free"},
+  {day:"Friday",activity:"Music class (A Sound Start or Rockness) + Torico ice cream",type:"Indoor",cost:"$$"},
+  {day:"Saturday",activity:"Liberty State Park + Nature Center + Van Vorst Market",type:"Outdoor",cost:"Free"},
+  {day:"Sunday",activity:"Riverview Market + brunch at City Diner + Newport carousel",type:"Mixed",cost:"$$"}
+];
+const proTips=[
+  "Pack a go bag with swimsuit, towel, change of clothes, sunscreen, and snacks \u2014 many activities pop up on nice days.",
+  "PATH train between JC, Hoboken, and NYC is easy \u2014 kids under 42 inches ride free!",
+  "Indoor play space memberships pay for themselves in 3+ visits \u2014 great for rainy months.",
+  "Saturday mornings before 10 AM = fewer crowds and cooler summer temps.",
+  "Liberty Science Center membership pays for itself in 2-3 visits + discounts at other museums.",
+  "Join JC Mamas and Jersey City Parents on Facebook for real-time tips and playdates.",
+  "The Hoboken-JC waterfront is one continuous walkable path between both cities.",
+  "Newark Ave restaurants are family-friendly at 5-6 PM \u2014 go before the evening crowd.",
+  "Bergen County Zoo: a real zoo with free admission, 30 minutes away. Best-kept secret.",
+  "Follow @jcfamilies on social media for the most up-to-date family events calendar."
+];
+
+let activeCategories=new Set(),activeCosts=new Set(),activeSettings=new Set(),searchQuery="",currentTab="all";
+let savedIds=new Set(JSON.parse(localStorage.getItem("jk_saved")||"[]"));
+
+function saveFavorites(){localStorage.setItem("jk_saved",JSON.stringify([...savedIds]));updateCounts();}
+function updateCounts(){document.getElementById("savedCount").textContent=savedIds.size;document.getElementById("allCount").textContent=activities.length;}
+function toggleSave(id,btn,e){
+  e.stopPropagation();
+  if(savedIds.has(id)){savedIds.delete(id);btn.classList.remove("saved");showToast("Removed from saved");}
+  else{savedIds.add(id);btn.classList.add("saved");btn.classList.remove("pop");void btn.offsetWidth;btn.classList.add("pop");showToast("Saved!");}
+  saveFavorites();if(currentTab==="saved")renderCards();
+}
+let toastTimer;
+function showToast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),1800);}
+function switchTab(tab){
+  currentTab=tab;
+  document.getElementById("tabAll").classList.toggle("active",tab==="all");
+  document.getElementById("tabSaved").classList.toggle("active",tab==="saved");
+  ["rainySection","plannerSection","tipsSection"].forEach(id=>document.getElementById(id).style.display=tab==="saved"?"none":"");
+  renderCards();
+}
+function normSetting(s){const l=s.toLowerCase();if(l.includes("/"))return"both";if(l==="both")return"both";return l.includes("indoor")?"indoor":"outdoor";}
+function matchesFilters(item){
+  if(currentTab==="saved"&&!savedIds.has(item.id))return false;
+  if(activeCategories.size>0&&!activeCategories.has(item.category))return false;
+  if(activeCosts.size>0&&!activeCosts.has(item.costTier))return false;
+  if(activeSettings.size>0&&!activeSettings.has(normSetting(item.setting)))return false;
+  if(searchQuery){const q=searchQuery.toLowerCase();return[item.name,item.description,item.toddler,item.tag,item.area,item.address,item.tips].join(" ").toLowerCase().includes(q);}
+  return true;
+}
+function renderCards(){
+  const grid=document.getElementById("cardsGrid"),filtered=activities.filter(matchesFilters);
+  document.getElementById("resultCount").textContent=`${filtered.length} idea${filtered.length!==1?"s":""}`;
+  if(!filtered.length){
+    const m=currentTab==="saved"?{e:"\u2764\uFE0F",t:"No saved activities yet",s:"Tap the heart on any activity to save it here"}:{e:"\uD83D\uDD0D",t:"No activities match",s:"Try removing some filters or changing your search"};
+    grid.innerHTML=`<div class="empty-state"><div class="emoji">${m.e}</div><h3>${m.t}</h3><p>${m.s}</p></div>`;return;
+  }
+  grid.innerHTML=filtered.map(item=>{
+    const ns=normSetting(item.setting),sc=ns==="both"?"both":ns==="indoor"?"indoor":"",cc=item.costTier==="free"?"free":"",sv=savedIds.has(item.id);
+    return`<div class="card cat-${item.category}"><div class="card-accent"></div><button class="save-btn ${sv?"saved":""}" onclick="toggleSave(${item.id},this,event)" title="Save"><svg class="heart-outline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"/></svg><svg class="heart-filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001Z"/></svg></button><div class="card-header"><div class="card-icon-wrap">${catIcons[item.category]||""}</div><div class="card-header-text"><div class="card-name">${item.name}</div><span class="card-tag">${item.tag}</span></div></div><div class="card-body"><p class="card-desc">${item.description}</p><div class="card-toddler">${item.toddler}</div></div><div class="card-detail"><div class="card-detail-inner">${item.address?`<p><strong>Address:</strong> ${item.address}</p>`:""}${item.hours?`<p><strong>Hours:</strong> ${item.hours}</p>`:""}${item.tips?`<p><strong>Tip:</strong> ${item.tips}</p>`:""}</div></div><div class="card-footer"><span class="card-pill pill-cost ${cc}">${item.cost}</span><span class="card-pill pill-setting ${sc}">${item.setting}</span><span class="card-pill pill-area">${item.area}</span></div><button class="card-expand-btn" onclick="this.closest('.card').classList.toggle('expanded');this.querySelector('.btn-text').textContent=this.closest('.card').classList.contains('expanded')?'Less':'More details'"><span class="btn-text">More details</span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg></button></div>`;
+  }).join("");
+}
+function renderPlanner(){document.getElementById("plannerGrid").innerHTML=weeklyPlan.map(d=>`<div class="planner-card"><div class="planner-day">${d.day}</div><div class="planner-activity">${d.activity}</div><div class="planner-meta">${d.type} &bull; ${d.cost}</div></div>`).join("");}
+function renderTips(){document.getElementById("tipsGrid").innerHTML=proTips.map((t,i)=>`<div class="tip-card"><span class="tip-num">${i+1}</span><span class="tip-text">${t}</span></div>`).join("");}
+
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{c.classList.toggle("active");syncFilters();renderCards();}));
+function syncFilters(){activeCategories.clear();activeCosts.clear();activeSettings.clear();document.querySelectorAll("#categoryFilters .chip.active").forEach(c=>activeCategories.add(c.dataset.category));document.querySelectorAll(".chip[data-cost].active").forEach(c=>activeCosts.add(c.dataset.cost));document.querySelectorAll(".chip[data-setting].active").forEach(c=>activeSettings.add(c.dataset.setting));}
+document.getElementById("clearAll").addEventListener("click",()=>{document.querySelectorAll(".chip.active").forEach(c=>c.classList.remove("active"));document.getElementById("searchInput").value="";searchQuery="";activeCategories.clear();activeCosts.clear();activeSettings.clear();renderCards();});
+document.getElementById("searchInput").addEventListener("input",e=>{searchQuery=e.target.value.trim();renderCards();});
+const scrollBtn=document.getElementById("scrollTop");
+window.addEventListener("scroll",()=>scrollBtn.classList.toggle("visible",window.scrollY>400));
+scrollBtn.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+
+renderCards();renderPlanner();renderTips();updateCounts();
+
+// ============ SPARKLES ============
+(function(){
+  const canvas = document.getElementById("sparkleCanvas");
+  if(!canvas) return;
+  const types = ["star","dot","ring","plus"];
+  // Static twinkling stars
+  for(let i = 0; i < 30; i++){
+    const s = document.createElement("div");
+    s.className = "sparkle-static";
+    s.style.left = Math.random()*100 + "%";
+    s.style.top = Math.random()*100 + "%";
+    s.style.animationDuration = (2 + Math.random()*3) + "s";
+    s.style.animationDelay = (Math.random()*4) + "s";
+    const colors = ["var(--coral)","var(--amber)","var(--sage)","#C47A9B"];
+    const c = colors[Math.floor(Math.random()*colors.length)];
+    s.style.background = c;
+    s.style.boxShadow = `0 0 4px 1px ${c}`;
+    s.style.width = (2+Math.random()*2)+"px";
+    s.style.height = s.style.width;
+    canvas.appendChild(s);
+  }
+  // Floating sparkles
+  function spawnSparkle(){
+    const s = document.createElement("div");
+    const t = types[Math.floor(Math.random()*types.length)];
+    s.className = "sparkle " + t;
+    s.style.left = Math.random()*100 + "%";
+    s.style.top = (40 + Math.random()*60) + "%";
+    s.style.animationDuration = (3 + Math.random()*4) + "s";
+    canvas.appendChild(s);
+    s.addEventListener("animationend", ()=>s.remove());
+  }
+  // Spawn a burst initially
+  for(let i=0;i<8;i++) setTimeout(spawnSparkle, i*300);
+  // Then ongoing
+  setInterval(spawnSparkle, 800);
+})();
+</script>
+</body>
+</html>
