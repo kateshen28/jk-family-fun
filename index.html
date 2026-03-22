@@ -6,6 +6,8 @@
   <title>J&K Family Fun Ideas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
     :root {
       --coral: #E8725A;
@@ -84,6 +86,22 @@
     .back-btn:hover { background:var(--coral); color:#fff; border-color:var(--coral); transform:translateX(-3px); box-shadow:0 4px 12px var(--coral-glow); }
     .back-btn svg { width:16px; height:16px; transition:transform 0.25s ease; }
     .back-btn:hover svg { transform:translateX(-3px); }
+
+    /* ===== CATEGORY TAGS ===== */
+    .cat-card-tags { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:10px; }
+    .cat-tag { font-family:var(--font-heading); font-size:0.66rem; font-weight:700; padding:3px 9px; border-radius:50px; background:rgba(0,0,0,0.07); line-height:1.3; }
+
+    /* ===== MAP VIEW ===== */
+    .map-container { max-width:1200px; margin:0 auto; padding:0 20px 40px; }
+    #mapView { height:520px; border-radius:var(--radius); box-shadow:var(--shadow); border:1px solid var(--border); z-index:1; }
+    @media (max-width:640px) { #mapView { height:400px; } }
+    .map-filters { max-width:1200px; margin:0 auto; padding:0 20px 14px; display:flex; gap:6px; flex-wrap:wrap; }
+    .map-filter { padding:7px 14px; border-radius:50px; border:1px solid #E8E2DA; background:var(--card-bg); font-family:var(--font-heading); font-size:0.78rem; font-weight:700; cursor:pointer; transition:all 0.2s; color:var(--text-secondary); }
+    .map-filter:hover { border-color:var(--coral); color:var(--coral); }
+    .map-filter.active { background:var(--coral); color:#fff; border-color:var(--coral); }
+    .map-legend { max-width:1200px; margin:0 auto; padding:8px 20px 0; display:flex; gap:12px; flex-wrap:wrap; font-size:0.72rem; font-family:var(--font-heading); font-weight:600; color:var(--text-secondary); }
+    .map-legend-item { display:flex; align-items:center; gap:4px; }
+    .map-legend-dot { width:10px; height:10px; border-radius:50%; border:2px solid #fff; box-shadow:0 1px 3px rgba(0,0,0,0.2); }
 
     /* ===== SECTION TITLE ===== */
     .section-heading { max-width:1200px; margin:0 auto; padding:24px 20px 16px; }
@@ -320,6 +338,7 @@
 
 <div class="tab-bar">
   <button class="tab-btn active" id="tabAll" onclick="switchTab('all')">Explore <span class="tab-count" id="allCount">49</span></button>
+  <button class="tab-btn" id="tabMap" onclick="switchTab('map')">Map</button>
   <button class="tab-btn" id="tabSaved" onclick="switchTab('saved')">Saved <span class="tab-count" id="savedCount">0</span></button>
 </div>
 
@@ -362,6 +381,13 @@
 <div id="viewSaved" class="view-container hidden">
   <div class="section-heading"><h2>Your Saved Places</h2><p>Activities you've hearted for later</p></div>
   <div class="venues-grid" id="savedGrid"></div>
+</div>
+
+<div id="viewMap" class="view-container hidden">
+  <div class="section-heading"><h2>Activity Map</h2><p>See where everything is — tap a pin for details</p></div>
+  <div class="map-filters" id="mapFilters"></div>
+  <div class="map-container"><div id="mapView"></div></div>
+  <div class="map-legend" id="mapLegend"></div>
 </div>
 
 <!-- Extras (shown on home only) -->
@@ -584,7 +610,7 @@ function getDirUrl(item) { return "https://www.google.com/maps/dir/?api=1&destin
 
 // ===== VIEW MANAGEMENT =====
 function showView(name) {
-  ["viewCategories","viewSubcategories","viewVenues","viewSearch","viewSaved"].forEach(id => {
+  ["viewCategories","viewSubcategories","viewVenues","viewSearch","viewSaved","viewMap"].forEach(id => {
     document.getElementById(id).classList.toggle("hidden", id !== "view" + name.charAt(0).toUpperCase() + name.slice(1));
   });
   document.getElementById("extrasSection").style.display = (name === "categories" && currentTab === "all") ? "" : "none";
@@ -639,8 +665,10 @@ function updateBackNav() {
 function switchTab(tab) {
   currentTab = tab;
   document.getElementById("tabAll").classList.toggle("active", tab === "all");
+  document.getElementById("tabMap").classList.toggle("active", tab === "map");
   document.getElementById("tabSaved").classList.toggle("active", tab === "saved");
   if (tab === "saved") { showSaved(); }
+  else if (tab === "map") { showMapView(); }
   else { goHome(); }
 }
 
@@ -772,11 +800,14 @@ function renderCategories() {
   const grid = document.getElementById("categoriesGrid");
   grid.innerHTML = Object.entries(catMeta).map(([key, cat]) => {
     const count = activities.filter(a => a.category === key).length;
+    const subs = subcategoryDefs[key] || [];
+    const tags = subs.map(s => `<span class="cat-tag">${s.icon} ${s.label}</span>`).join("");
     return `<div class="cat-card ${key}" onclick="openCategory('${key}')">
       <div class="cat-card-arrow">&#8250;</div>
       <div class="cat-card-icon">${cat.icon}</div>
       <div class="cat-card-name">${cat.name}</div>
       <div class="cat-card-desc">${cat.desc}</div>
+      <div class="cat-card-tags">${tags}</div>
       <div class="cat-card-count">${count} activities</div>
     </div>`;
   }).join("");
@@ -794,6 +825,106 @@ scrollBtn.addEventListener("click", () => window.scrollTo({ top:0, behavior:"smo
 
 // ===== INIT =====
 renderCategories(); renderExtras(); updateCounts();
+
+// ===== MAP =====
+const coords = {
+  1:[40.7043,-74.0553],2:[40.7267,-74.0450],3:[40.7267,-74.0350],4:[40.7483,-74.0571],
+  5:[40.7133,-74.0667],6:[40.7393,-74.0265],7:[40.7217,-74.0450],8:[40.7283,-74.0650],
+  9:[40.7107,-74.0550],10:[40.7170,-74.0370],11:[40.7215,-74.0465],12:[40.7200,-74.0430],
+  13:[40.7350,-74.0350],14:[40.7210,-74.0470],15:[40.7440,-74.0320],16:[40.7215,-74.0465],
+  17:[40.7220,-74.0440],18:[40.7350,-74.0340],19:[40.7360,-74.0330],20:[40.7380,-74.0310],
+  21:[40.7370,-74.0320],22:[40.7215,-74.0470],23:[40.7220,-74.0480],24:[40.7215,-74.0475],
+  25:[40.7210,-74.0420],26:[40.7360,-74.0630],27:[40.7200,-74.0450],28:[40.7190,-74.0430],
+  29:[40.7267,-74.0350],30:[40.7215,-74.0470],31:[40.7690,-74.1710],32:[40.7200,-74.0430],
+  33:[40.7215,-74.0470],34:[40.6810,-74.3690],35:[40.7600,-74.2400],36:[40.9076,-74.0760],
+  37:[40.7874,-74.3881],38:[41.0180,-74.0537],39:[40.7043,-74.0553],40:[39.9448,-75.1210],
+  41:[40.7442,-74.1711],42:[40.7850,-74.4820],43:[40.7440,-74.0320],44:[40.7430,-74.0310],
+  45:[40.7435,-74.0315],46:[40.7200,-74.0430],47:[40.7043,-74.0553],48:[40.7120,-74.0340],
+  49:[40.7354,-74.0283],50:[40.8506,-73.8770],51:[40.7678,-73.9718],52:[40.6652,-73.9653],
+  53:[40.5741,-73.9756],54:[40.0867,-74.0487],55:[40.6714,-73.9440],56:[40.7820,-73.9720],
+  57:[40.7813,-73.9740],58:[40.7870,-74.6900],59:[40.9990,-74.1660],60:[40.3280,-74.7200],
+  61:[40.7480,-74.0048],62:[40.7587,-73.9787],63:[40.6892,-74.0167],64:[40.6694,-73.9625],
+  65:[40.7725,-73.9835],66:[40.7829,-73.9654],67:[40.8020,-73.9710],68:[40.6892,-74.0167],
+  69:[40.7747,-73.9674],70:[40.6920,-73.9988],71:[40.2870,-74.3110],72:[41.1330,-74.2990],
+  73:[40.6218,-74.0095],74:[40.8626,-73.8782],75:[40.7536,-73.9832],76:[40.6830,-73.9660],
+  77:[40.6710,-73.9820],78:[40.6920,-73.9988],79:[40.8120,-74.0742],80:[40.7645,-74.0024],
+  81:[40.7695,-73.9740],82:[40.7362,-74.0115],83:[40.7137,-73.9680],84:[40.7308,-73.9973],
+  85:[40.7196,-74.0095],86:[40.7200,-74.0430],87:[40.7424,-74.0061],88:[40.7610,-73.9590],
+  89:[40.7005,-73.9933],90:[40.7472,-73.8518],91:[40.7137,-73.9680]
+};
+
+const catColors = {
+  outdoor:'#4A7D5A', indoor:'#4A6E94', arts_culture:'#6B4F8A', food_dining:'#B4533F',
+  seasonal_events:'#A07030', day_trips:'#3F5A8A', hidden_gems:'#8A4A66'
+};
+
+let map = null;
+let mapMarkers = [];
+
+function showMapView() {
+  currentCategory = null; currentSubcategory = null;
+  document.getElementById("breadcrumb").classList.remove("visible");
+  document.getElementById("backNav").classList.remove("visible");
+  showView("map");
+  if (!map) {
+    map = L.map('mapView').setView([40.73, -74.00], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom:18
+    }).addTo(map);
+    renderMapFilters();
+    renderMapLegend();
+  }
+  setTimeout(() => { map.invalidateSize(); plotMarkers(activities); }, 150);
+}
+
+function renderMapFilters() {
+  const all = `<button class="map-filter active" onclick="filterMap(null,this)">All (${activities.length})</button>`;
+  const cats = Object.entries(catMeta).map(([key, cat]) => {
+    const count = activities.filter(a => a.category === key).length;
+    return `<button class="map-filter" onclick="filterMap('${key}',this)">${cat.icon} ${cat.name} (${count})</button>`;
+  }).join("");
+  document.getElementById("mapFilters").innerHTML = all + cats;
+}
+
+function renderMapLegend() {
+  document.getElementById("mapLegend").innerHTML = Object.entries(catMeta).map(([key, cat]) =>
+    `<span class="map-legend-item"><span class="map-legend-dot" style="background:${catColors[key]}"></span>${cat.name}</span>`
+  ).join("");
+}
+
+function filterMap(catKey, btn) {
+  document.querySelectorAll('.map-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const items = catKey ? activities.filter(a => a.category === catKey) : activities;
+  plotMarkers(items);
+}
+
+function plotMarkers(items) {
+  mapMarkers.forEach(m => map.removeLayer(m));
+  mapMarkers = [];
+  items.forEach(a => {
+    const c = coords[a.id];
+    if (!c) return;
+    const color = catColors[a.category] || '#E8725A';
+    const marker = L.circleMarker([c[0], c[1]], {
+      radius:8, fillColor:color, color:'#fff', weight:2, fillOpacity:0.9
+    }).addTo(map);
+    const mapUrl = getMapUrl(a);
+    const stars = renderStars(a.rating);
+    marker.bindPopup(`<div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:200px;max-width:260px">
+      <strong style="font-size:0.95rem;line-height:1.3;display:block;margin-bottom:4px">${a.name}</strong>
+      <span style="font-size:0.72rem;font-weight:700;padding:2px 8px;border-radius:50px;background:${color}15;color:${color}">${a.tag}</span><br>
+      <span style="font-size:0.78rem;color:#6B6560;margin-top:4px;display:inline-block">${a.area} &bull; ${a.cost}</span><br>
+      <span style="font-size:0.78rem;color:#F2A65A">${stars}</span> <span style="font-size:0.78rem;font-weight:700">${a.rating}</span><br>
+      <a href="${mapUrl}" target="_blank" rel="noopener" style="font-size:0.78rem;color:#3F5A8A;font-weight:700;text-decoration:none;margin-top:6px;display:inline-block">Open in Google Maps &rarr;</a>
+    </div>`, {maxWidth:280});
+    mapMarkers.push(marker);
+  });
+  if (mapMarkers.length > 0) {
+    map.fitBounds(L.featureGroup(mapMarkers).getBounds().pad(0.1));
+  }
+}
 
 // ===== SPARKLES =====
 (function() {
