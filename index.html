@@ -258,23 +258,6 @@
     .rainy-item { background:var(--cream); padding:7px 15px; border-radius:50px; font-size:0.84rem; font-weight:600; border:1px solid #E8E2DA; transition:all 0.2s; cursor:pointer; }
     .rainy-item:hover { transform:translateY(-2px); border-color:var(--coral); color:var(--coral); }
 
-    .planner-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:12px; }
-    .planner-card { background:var(--card-bg); border-radius:var(--radius-sm); padding:16px; box-shadow:var(--shadow-sm); border:1px solid var(--border); border-left:4px solid var(--coral); }
-    .planner-card:nth-child(2) { border-left-color:var(--amber); }
-    .planner-card:nth-child(3) { border-left-color:#9B7EC8; }
-    .planner-card:nth-child(4) { border-left-color:#6B8EBF; }
-    .planner-card:nth-child(5) { border-left-color:var(--sage); }
-    .planner-card:nth-child(6) { border-left-color:#C47A9B; }
-    .planner-card:nth-child(7) { border-left-color:#5B7FC7; }
-    .planner-day { font-family:var(--font-heading); font-weight:800; font-size:0.7rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); margin-bottom:4px; }
-    .planner-activity { font-size:0.88rem; font-weight:600; color:var(--text); line-height:1.45; }
-    .planner-meta { font-size:0.76rem; color:var(--text-muted); margin-top:6px; font-weight:600; }
-
-    .tips-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:12px; }
-    @media (max-width:420px) { .tips-grid { grid-template-columns:1fr; } }
-    .tip-card { background:var(--card-bg); border-radius:var(--radius-sm); padding:14px; box-shadow:var(--shadow-sm); display:flex; gap:12px; align-items:flex-start; border:1px solid var(--border); }
-    .tip-num { width:30px; height:30px; border-radius:8px; background:var(--coral); color:#fff; font-family:var(--font-heading); font-weight:800; font-size:0.82rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-    .tip-text { font-size:0.85rem; color:var(--text-secondary); line-height:1.5; }
 
     /* ===== EMPTY STATE ===== */
     .empty-state { text-align:center; padding:60px 20px; grid-column:1/-1; }
@@ -388,14 +371,6 @@
     <div class="rainy-inner">
       <div class="rainy-list" id="rainyList"></div>
     </div>
-  </div>
-  <div class="extras-section">
-    <h3 class="extras-title">Weekly Fun Planner</h3>
-    <div class="planner-grid" id="plannerGrid"></div>
-  </div>
-  <div class="extras-section">
-    <h3 class="extras-title">Pro Tips for Jay &amp; Kate</h3>
-    <div class="tips-grid" id="tipsGrid"></div>
   </div>
 </div>
 
@@ -579,27 +554,6 @@ const activities = [
   {id:91,name:"Smorgasburg",category:"food_dining",subcategory:"markets",description:"NYC's largest weekly open-air food market with 100+ local vendors, from dumplings and tacos to ramen burgers and rainbow grilled cheese.",toddler:"Outdoor setting with room to roam. Wide variety means picky toddlers can always find something. Waterfront locations have playgrounds nearby.",cost:"$$",costTier:"$$",setting:"Outdoor",address:"Williamsburg: Kent Ave & N 7th; Prospect Park: Breeze Hill",area:"Brooklyn (~35 min)",tag:"Foodie Paradise",hours:"Saturdays (Williamsburg) & Sundays (Prospect Park), Apr-Oct, 11am-6pm",tips:"Go early to avoid lines. Williamsburg location is near Domino Park. Prospect Park location is near the zoo and playground.",rating:4.5,reviewCount:12400,website:"https://www.smorgasburg.com"},
 ];
 
-const weeklyPlan = [
-  {day:"Monday",activity:"Grove Street Farmers Market + playground at Hamilton Park",type:"Outdoor",cost:"Free"},
-  {day:"Tuesday",activity:"Coles Street Story Hour (4-5 PM) or Pier 13 Funday",type:"Outdoor",cost:"Free"},
-  {day:"Wednesday",activity:"Story Time at JC Library + indoor play at Krayon Park",type:"Indoor",cost:"Free / $$"},
-  {day:"Thursday",activity:"Pavonia Branch Story Time + Grove Street Farmers Market",type:"Indoor/Outdoor",cost:"Free"},
-  {day:"Friday",activity:"Music class (A Sound Start or Rockness) + Torico ice cream",type:"Indoor",cost:"$$"},
-  {day:"Saturday",activity:"Liberty State Park + Nature Center + Van Vorst Market",type:"Outdoor",cost:"Free"},
-  {day:"Sunday",activity:"Riverview Market + brunch at City Diner + Newport carousel",type:"Mixed",cost:"$$"},
-];
-const proTips = [
-  "Pack a go bag with swimsuit, towel, change of clothes, sunscreen, and snacks \u2014 many activities pop up on nice days.",
-  "PATH train between JC, Hoboken, and NYC is easy \u2014 kids under 42 inches ride free!",
-  "Indoor play space memberships pay for themselves in 3+ visits \u2014 great for rainy months.",
-  "Saturday mornings before 10 AM = fewer crowds and cooler summer temps.",
-  "Liberty Science Center membership pays for itself in 2-3 visits + discounts at other museums.",
-  "Join JC Mamas and Jersey City Parents on Facebook for real-time tips and playdates.",
-  "The Hoboken-JC waterfront is one continuous walkable path between both cities.",
-  "Newark Ave restaurants are family-friendly at 5-6 PM \u2014 go before the evening crowd.",
-  "Bergen County Zoo: a real zoo with free admission, 30 minutes away. Best-kept secret.",
-  "Follow @jcfamilies on social media for the most up-to-date family events calendar.",
-];
 const rainyDayItems = ["Liberty Science Center","Krayon Park","Just Play!","Funzy Playground","JC Library Story Time","Gymboree","The Hive","Imagine That!!!","Brooklyn Children's Museum","Children's Museum of Manhattan","LEGOLAND Discovery Center NJ","House of Wonder","Good Day Play Cafe"];
 
 // ===== STATE =====
@@ -831,8 +785,6 @@ function renderCategories() {
 // ===== RENDER EXTRAS =====
 function renderExtras() {
   document.getElementById("rainyList").innerHTML = rainyDayItems.map(r => `<span class="rainy-item">${r}</span>`).join("");
-  document.getElementById("plannerGrid").innerHTML = weeklyPlan.map(d => `<div class="planner-card"><div class="planner-day">${d.day}</div><div class="planner-activity">${d.activity}</div><div class="planner-meta">${d.type} &bull; ${d.cost}</div></div>`).join("");
-  document.getElementById("tipsGrid").innerHTML = proTips.map((t,i) => `<div class="tip-card"><span class="tip-num">${i+1}</span><span class="tip-text">${t}</span></div>`).join("");
 }
 
 // ===== SCROLL TOP =====
